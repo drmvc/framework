@@ -50,11 +50,32 @@ class Language
         if (is_readable($file)) {
             /** require file */
             $this->array[$name] = include($file);
-            /** return to caller */
-            return $this->array[$name];
         } else {
             /** display error */
             echo Error::display("Could not load language file '$code" . DIRECTORY_SEPARATOR . "$name.php'");
+            die;
+        }
+    }
+
+    /**
+     * Read lines from file
+     *
+     * @param $name
+     * @param mixed|string $code
+     * @return mixed
+     */
+    public function read($name, $code = LANGUAGE_CODE)
+    {
+        /** lang file */
+        $file = APPPATH . "Language" . DIRECTORY_SEPARATOR . "$code" . DIRECTORY_SEPARATOR . "$name.php";
+
+        /** check if is readable */
+        if (is_readable($file)) {
+            /** require file */
+            return include($file);
+        } else {
+            /** display error */
+            echo Error::display("Could not load language file '$code/$name.php'");
             die;
         }
     }

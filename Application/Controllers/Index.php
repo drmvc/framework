@@ -21,10 +21,10 @@ class Index extends Main
         $data['scripts'] = array();
 
         // Get index language
-        $data['lng'] = $this->lng;
+        $data['lng'] = $this->language;
 
         // Get second language
-        $data['lng_sec'] = $this->lng_sec;
+        $data['lng_sec'] = $this->language->read('second');
 
         View::render('templates/header', $data);
         View::render('index', $data);

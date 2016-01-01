@@ -1,7 +1,7 @@
 <div class="well">
-    <h2><?php echo TITLE . ' &mdash; ' . $data['lng']['index']; ?></h2>
+    <h2><?php echo TITLE . ' &mdash; ' . $data['lng']->get('index'); ?></h2>
 
-    <p><?php echo $data['lng']['index_welcome']; ?></p>
+    <p><?php echo $data['lng']->get('index_welcome'); ?></p>
 </div>
 
 <div class="well">

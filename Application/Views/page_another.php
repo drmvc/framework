@@ -1,7 +1,7 @@
 <div class="well">
-    <h2><?php echo TITLE . ' &mdash; ' . $data['lng']['page_another']; ?></h2>
+    <h2><?php echo TITLE . ' &mdash; ' . $data['lng']->get('page_another'); ?></h2>
 
-    <p><?php echo $data['lng']['page_another_welcome']; ?></p>
+    <p><?php echo $data['lng']->get('page_another_welcome'); ?></p>
 </div>
 
 <ul class="nav nav-pills">

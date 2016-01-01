@@ -20,8 +20,7 @@ class Main extends Controller
                 'holderjs/holder.min.js',
         );
 
-        $this->lng = $this->language->load('index');
-        $this->lng_sec = $this->language->load('second');
+        $this->language->load('index');
     }
 
 }
