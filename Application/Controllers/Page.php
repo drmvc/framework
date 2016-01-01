@@ -20,7 +20,7 @@ class Page extends Main
         $data['styles'] = array();
         $data['scripts'] = array();
 
-        $data['lng'] = $this->language;
+        $data['lng'] = $this->lng;
 
         View::render('templates/header', $data);
         View::render('page', $data);
@@ -36,7 +36,7 @@ class Page extends Main
         $data['styles'] = array();
         $data['scripts'] = array();
 
-        $data['lng'] = $this->language;
+        $data['lng'] = $this->lng;
 
         View::render('templates/header', $data);
         View::render('page_another', $data);

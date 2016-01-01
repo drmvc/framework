@@ -18,6 +18,21 @@ class Language
     private $array;
 
     /**
+     * Variable holds language filename.
+     *
+     * @var string
+     */
+    public $filename;
+
+    /**
+     * Construct this class
+     */
+    public function __construct()
+    {
+        return $this;
+    }
+
+    /**
      * Load language function.
      *
      * @param string $name
@@ -28,10 +43,15 @@ class Language
         /** lang file */
         $file = APPPATH . "Language" . DIRECTORY_SEPARATOR . "$code" . DIRECTORY_SEPARATOR . "$name.php";
 
+        /** keep name */
+        $this->filename = $name;
+
         /** check if is readable */
         if (is_readable($file)) {
             /** require file */
-            $this->array = include($file);
+            $this->array[$name] = include($file);
+            /** return to caller */
+            return $this->array[$name];
         } else {
             /** display error */
             echo Error::display("Could not load language file '$code" . DIRECTORY_SEPARATOR . "$name.php'");
@@ -43,13 +63,12 @@ class Language
      * Get element from language array by key.
      *
      * @param  string $value
-     *
      * @return string
      */
     public function get($value)
     {
-        if (!empty($this->array[$value])) {
-            return $this->array[$value];
+        if (!empty($this->array[$this->filename][$value])) {
+            return $this->array[$this->filename][$value];
         } else {
             return $value;
         }

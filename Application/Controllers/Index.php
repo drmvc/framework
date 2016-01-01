@@ -13,14 +13,18 @@ class Index extends Main
 
     public function action_index()
     {
-        $data['title'] = $this->language->get('index');
+        $data['title'] = $this->language->get('index', 'index');
 
         $data['styles_vendor'] = $this->styles_vendor;
         $data['scripts_vendor'] = $this->scripts_vendor;
         $data['styles'] = array();
         $data['scripts'] = array();
 
-        $data['lng'] = $this->language;
+        // Get index language
+        $data['lng'] = $this->lng;
+
+        // Get second language
+        $data['lng_sec'] = $this->lng_sec;
 
         View::render('templates/header', $data);
         View::render('index', $data);
