@@ -4,6 +4,15 @@
 
 It's a minimalistic PHP 5.5 MVC framework, created under the influence of [Kohana](https://github.com/kohana/kohana) and [SimpleMVC](https://github.com/simple-mvc-framework/framework), and have a some similar functionality.
 
+## Some features
+
+* The default database driver can work with most popular databases (eg. Mongo or PostgreSQL, or MySQL etc.)
+* Simultaneous use of several localization files
+* No need to describe each url-path into the routes, just use the url-templates, like page(/\<id\>)
+ * You can push variables from the route directly into the controller
+ * Only action_* (into your controller) functions can be executed dynamically
+* Embedded the variables Cleaner helper class
+
 ## Modules
 
 * **Database** - default database module, supports:
