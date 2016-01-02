@@ -1,0 +1,22 @@
+{
+    "name": "DrTeamRocks/drmvc-framework",
+    "type": "project",
+    "description": "Framework for PHP 5.5+",
+    "homepage": "https://github.com/DrTeamRocks/drmvc-framework",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Pavel Rykov",
+            "email": "p.rikov@drteam.rocks",
+            "homepage": "http://drteam.rocks/",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.5.0"
+    },
+    "autoload": {
+        "psr-4": {"": ""}
+    },
+    "minimum-stability": "dev"
+}
