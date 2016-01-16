@@ -14,6 +14,12 @@ Route::set('error', 'error')
         'action' => 'index',
     ));
 
+/**
+ * Default route:
+ * <controller> - application controller name
+ * <action>     - "action_*" from controller
+ * <id>         - dynamical variable, you can get this via $this->request->param()
+ */
 Route::set('default', '(<controller>(/<action>(/<id>)))')
     ->defaults(array(
         'controller' => 'Index',

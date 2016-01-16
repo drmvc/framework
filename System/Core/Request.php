@@ -213,6 +213,8 @@ class Request
 
         // Create requested class
         $app = new $controller();
+        // Send current request into controller
+        $app->request = $this;
         // Run action and exec page generation
         $app->$action();
     }

@@ -85,6 +85,14 @@ class Url
     }
 
     /**
+     * Return previous url
+     */
+    public static function getPrevious()
+    {
+        return $_SERVER['HTTP_REFERER'];
+    }
+
+    /**
      * Get all url parts based on a / separator
      *
      * @return array of segments
