@@ -23,6 +23,9 @@ require SYSPATH . 'bootstrap.php';
 
 // Load class
 use System\Core\Request;
+use System\Core\Session;
 
+// Start session
+Session::init();
 // Render current page
 Request::factory(true)->execute()->render();

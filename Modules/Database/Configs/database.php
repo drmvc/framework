@@ -35,7 +35,7 @@ return array(
 		'database' => 'test2',
 		'prefix'   => '',
 		'username' => 'test',
-		'password' => 'testp'
+		'password' => 'testp',
 		// Client encoding
 		'encoding' => 'utf8',
 	),
@@ -49,6 +49,6 @@ return array(
 		'database' => 'test3',
 		'prefix'   => '',
 		'username' => 'test',
-		'password' => 'testp'
+		'password' => 'testp',
 	),
 );

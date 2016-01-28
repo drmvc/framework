@@ -35,6 +35,8 @@ abstract class Model extends System_Model
 
     // Database protected instance
     protected $_db;
+    // Database public instance
+    public $db;
 
     /**
      * Load database if dbname exist
