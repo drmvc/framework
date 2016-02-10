@@ -27,6 +27,8 @@ It's a minimalistic PHP 5.5 MVC framework, created under the influence of [Kohan
 
 * [**PHPMailer**](https://github.com/PHPMailer/PHPMailer) - awesome mailer class for your site
 
+* [**PHPZabbixAPI**](https://github.com/confirm/PhpZabbixApi) - class for integration with Zabbix
+
 ## How routing works
 
 Default routes stored in:
