@@ -23,6 +23,9 @@ class Request
             if ($uri === TRUE) {
                 // Attempt to guess the proper URI
                 $uri = Request::detect_uri();
+
+                $dir = str_replace('/', '\/', DIR);
+                $uri = preg_replace('/^' . $dir . '/', '/', $uri);
             }
             // Create the instance singleton
             Request::$initial = $request = new Request($uri);
@@ -228,8 +231,7 @@ class Request
      */
     public function param($key = NULL, $default = NULL)
     {
-        if ($key === NULL)
-        {
+        if ($key === NULL) {
             // Return the full array
             return $this->_params;
         }

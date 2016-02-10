@@ -78,4 +78,73 @@ class DPdo extends Database
         return $result;
     }
 
+    /**
+     * Insert method
+     *
+     * @param  $table table name
+     * @param  $data  array of columns and values
+     * @return string
+     */
+    public function insert($table, $data)
+    {
+        ksort($data);
+
+        $fieldNames = implode(',', array_keys($data));
+        $fieldValues = ':' . implode(', :', array_keys($data));
+
+        $stmt = $this->_connection->prepare("INSERT INTO $table ($fieldNames) VALUES ($fieldValues)");
+
+        foreach ($data as $key => $value) {
+            $stmt->bindValue(":$key", $value);
+        }
+
+        $stmt->execute();
+        return $this->_connection->lastInsertId();
+    }
+
+    /**
+     * Update method
+     *
+     * @param  string $table table name
+     * @param  array $data array of columns and values
+     * @param  array $where array of columns and values
+     * @return string
+     */
+    public function update($table, $data, $where)
+    {
+        ksort($data);
+
+        $fieldDetails = null;
+        foreach ($data as $key => $value) {
+            $fieldDetails .= "$key = :field_$key,";
+        }
+        $fieldDetails = rtrim($fieldDetails, ',');
+
+        $whereDetails = null;
+        $i = 0;
+        foreach ($where as $key => $value) {
+            if ($i == 0) {
+                $whereDetails .= "$key = :where_$key";
+            } else {
+                $whereDetails .= " AND $key = :where_$key";
+            }
+            $i++;
+        }
+        $whereDetails = ltrim($whereDetails, ' AND ');
+
+        $stmt = $this->_connection->prepare("UPDATE $table SET $fieldDetails WHERE $whereDetails");
+        error_log("UPDATE $table SET $fieldDetails WHERE $whereDetails", 0);
+
+        foreach ($data as $key => $value) {
+            $stmt->bindValue(":field_$key", $value);
+        }
+
+        foreach ($where as $key => $value) {
+            $stmt->bindValue(":where_$key", $value);
+        }
+
+        $stmt->execute();
+        return $stmt->rowCount();
+    }
+
 }
