@@ -1,12 +1,8 @@
-<?php
-/**
- * Error - class for return errors
- */
-
-namespace System\Core;
+<?php namespace System\Core;
 
 /**
- * Error class to generate 404 pages.
+ * Error class to generate 404 pages
+ * @package System\Core
  */
 class Error extends Controller
 {

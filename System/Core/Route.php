@@ -1,10 +1,9 @@
-<?php
+<?php namespace System\Core;
+
 /**
- * Route - route generator and analyzer
+ * Class Route for generate and analyze
+ * @package System\Core
  */
-
-namespace System\Core;
-
 class Route
 {
 

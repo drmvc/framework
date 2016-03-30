@@ -4,7 +4,7 @@ return array(
 	/**
 	 * Site title
 	 */
-	'TITLE' => 'DrMVC',
+	'SITETITLE' => 'DrMVC',
 
 	/**
 	 * Site main URL (optional)

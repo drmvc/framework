@@ -1,12 +1,8 @@
-<?php
-/**
- * Language - simple language loader
- */
-
-namespace System\Core;
+<?php namespace System\Core;
 
 /**
- * Language class to load the requested language file.
+ * Language class to load the requested language file
+ * @package System\Core
  */
 class Language
 {

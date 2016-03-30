@@ -1,10 +1,9 @@
-<?php
+<?php namespace System\Core;
+
 /**
- * Model - class for work with models
+ * Class Model for work with simple models
+ * @package System\Core
  */
-
-namespace System\Core;
-
 class Model
 {
     /**

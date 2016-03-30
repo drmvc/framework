@@ -1,11 +1,9 @@
-<?php
+<?php namespace System\Core;
+
 /**
  * Helper class with simple functions
+ * @package System\Core
  */
-
-namespace System\Core;
-
-
 class Helpers
 {
 

@@ -1,17 +1,20 @@
-<?php
+<?php namespace System\Core;
 
-namespace System\Core;
-
+/**
+ * Class Config for access to application and system configs
+ * @package System\Core
+ */
 class Config
 {
 
     /**
-     * Load configuration file
+     * Load configuration file, show config path if needed
      *
-     * @param  string $name
+     * @param  string  $name
+     * @param  boolean $show_path
      * @return mixed|null
      */
-    public static function load($name)
+    public static function load($name, $show_path = false)
     {
         // Application config
         $appconfig = APPPATH . 'Configs' . DIRECTORY_SEPARATOR . $name . '.php';
@@ -21,11 +24,11 @@ class Config
         switch (true) {
             case file_exists($appconfig):
                 $config = include($appconfig);
-                $config['path'] = $appconfig;
+                if ($show_path) $config['path'] = $appconfig;
                 break;
             case file_exists($sysconfig):
                 $config = include($sysconfig);
-                $config['path'] = $sysconfig;
+                if ($show_path) $config['path'] = $sysconfig;
                 break;
             default:
                 $config = NULL;

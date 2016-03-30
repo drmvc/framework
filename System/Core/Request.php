@@ -1,10 +1,9 @@
-<?php
+<?php namespace System\Core;
+
 /**
- * Request - class for compare url with routes
+ * Request class for compare url with routes and exec required controllers
+ * @package System\Core
  */
-
-namespace System\Core;
-
 class Request
 {
     public static $initial;

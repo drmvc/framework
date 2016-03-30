@@ -2,12 +2,19 @@
 
 namespace System\Core;
 
+/**
+ * If we open page http://example.com/page
+ */
 Route::set('page', 'page')
     ->defaults(array(
         'controller' => 'Page',
         'action' => 'index',
     ));
 
+/**
+ * If we open page http://example.com/error or wrong path.
+ * Do not chanel this route name.
+ */
 Route::set('error', 'error')
     ->defaults(array(
         'controller' => 'Error',

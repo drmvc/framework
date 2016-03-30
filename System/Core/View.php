@@ -1,12 +1,7 @@
-<?php
-/**
- * View - class for work with views
- */
-
-namespace System\Core;
+<?php namespace System\Core;
 
 /**
- * Load views files class
+ * Class View for work with views
  */
 class View
 {

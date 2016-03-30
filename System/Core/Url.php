@@ -1,12 +1,8 @@
-<?php
-/**
- * Url - class manipulations with url
- */
-
-namespace System\Core;
+<?php namespace System\Core;
 
 /**
- * Collection of methods for working with urls
+ * Class Url for manipulations with url, like redirection or parse
+ * @package System\Core
  */
 class Url
 {

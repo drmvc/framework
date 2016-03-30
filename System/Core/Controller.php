@@ -1,12 +1,8 @@
-<?php
-/**
- * Base controller
- */
-
-namespace System\Core;
+<?php namespace System\Core;
 
 /**
- * Core controller, all other controllers extend this base controller.
+ * Core controller, all other controllers extend this base controller
+ * @package System\Core
  */
 abstract class Controller
 {

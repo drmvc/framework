@@ -1,12 +1,8 @@
-<?php
-/**
- * Session - class for work with users sessions
- */
-
-namespace System\Core;
+<?php namespace System\Core;
 
 /**
- * Prefix sessions with useful methods.
+ * Class Session for work with users sessions
+ * @package System\Core
  */
 class Session
 {

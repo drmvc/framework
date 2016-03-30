@@ -1,6 +1,4 @@
-<?php
-
-namespace System\Core;
+<?php namespace System\Core;
 
 // Autoload classes
 require DOCROOT . 'autoload.php';

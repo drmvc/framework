@@ -1,7 +1,9 @@
-<?php
+<?php namespace System\Core;
 
-namespace System\Core;
-
+/**
+ * Class Password for password generation and simple checks
+ * @package System\Core
+ */
 class Password
 {
 
