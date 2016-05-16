@@ -1,12 +1,13 @@
-<?php namespace System\Core;
-
+<?php
 /**
  * Helper class with simple functions
- * @package System\Core
  */
+
+namespace System\Core;
+
+
 class Helpers
 {
-
     /**
      * Multidimensional search
      *
@@ -43,9 +44,12 @@ class Helpers
         }
     }
 
-
     /**
      * Cleanup the value
+     *
+     * @param $value
+     * @param null $type
+     * @return mixed|string
      */
     public static function cleaner($value, $type = NULL)
     {
@@ -77,11 +81,51 @@ class Helpers
             default:
                 $value = htmlspecialchars($value, ENT_QUOTES);
                 $value = preg_replace(array("/\r\n\r\n/", "/\n\n/"), array("<br/>", "<br/>"), $value);
-                $value = preg_replace("/[^а-яёa-z0-9\~\`\.\,\@\%\[\]\/\:\<\>\\\;\?\&\(\)\_\#\!\$\*\^\-\+\=\ \n\r]/iu", "", $value);
+                $value = preg_replace("/[^а-яёa-z0-9\—\~\`\.\,\@\%\[\]\/\:\<\>\\\;\?\&\(\)\_\#\!\$\*\^\-\+\=\ \n\r]/iu", "", $value);
                 break;
         }
 
         return $value;
     }
 
+    /**
+     * Generate selectors
+     *
+     * @param $name
+     * @param $arr
+     * @param int $test
+     * @param null $data_id
+     * @return string
+     */
+    public static function selector($name, $arr, $test = -1, $data_id = NULL)
+    {
+        $out = "<select class='" . $name . " form-control' name='" . $name . "' data-id='" . $data_id . "'>";
+        //$out = $out."<option value='NULL' disabled selected>---</option>";
+        $out = $out . "<option value='NULL' selected>---</option>";
+        $i = 0;
+        while ($i < count($arr)) {
+            if ($test != $arr[$i]->id) {
+                $out = $out . "<option value='" . $arr[$i]->id . "'>" . $arr[$i]->name . "</option>";
+            } else {
+                $out = $out . "<option value='" . $arr[$i]->id . "' selected>" . $arr[$i]->name . "</option>";
+            }
+            $i++;
+        }
+        $out = $out . "</select>";
+        return $out;
+    }
+
+    /**
+     * Generate checkbox
+     *
+     * @param $name
+     * @param $status
+     * @param null $id
+     * @return string
+     */
+    public static function checkbox($name, $status, $id = NULL)
+    {
+        if ('t' == $status) $ch = 'checked'; else  $ch = '';
+        return "<input type='checkbox' class='checkbox " . $name . "' data-id='" . $id . "' name='" . $name . "' " . $ch . ">";
+    }
 }
