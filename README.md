@@ -18,7 +18,7 @@ It's a minimalistic PHP 5.5 MVC framework, created under the influence of [Kohan
 * **Database** - default database module, supports:
  * Multiple database instances
  * PDO databases like MySQL, or PostgreSQL
- * Mongo
+ * Mongo through MongoClient and MongoDB driver
  * SQLite (Via PDO driver, but have some fix for correct work)
 
 * **DatabaseSimple** - ported from SimpleMVC `Helpers\Database` class

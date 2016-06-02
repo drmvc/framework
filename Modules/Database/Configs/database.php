@@ -41,7 +41,19 @@ return array(
 	),
 	'fastbase_for_stats' => array(
 		// Database type
-		'type'     => 'mongo',
+		'type'     => 'mongoClient',
+		// Network configuration
+		'hostname' => 'localhost',
+		'port'     => '5432',
+		// Set the database name and user credentials
+		'database' => 'test3',
+		'prefix'   => '',
+		'username' => 'test',
+		'password' => 'testp',
+	),
+	'fastbase_via_modern_driver' => array(
+		// Database type
+		'type'     => 'mongoDB',
 		// Network configuration
 		'hostname' => 'localhost',
 		'port'     => '5432',
