@@ -17,8 +17,7 @@ class DPdo extends Database
      */
     public function connect()
     {
-        if ($this->_connection)
-            return;
+        if ($this->_connection) return;
 
         // Configurations
         $config = $this->_config;
@@ -32,57 +31,26 @@ class DPdo extends Database
     }
 
     /**
-     * Basic query function
+     * Run a select statement against the database
      *
-     * @param  string $sql
-     * @param  null   $mode fetch_all - get all rows, fetch - get first row, execute - just exec, count - lines count
-     * @return object|string|bool
+     * @param  string $query
+     * @return array
      */
-    public function query($sql, $mode = NULL)
+    public function select($query)
     {
-        // Make sure the database is connected
-        $this->_connection or $this->connect();
+        $statement = $this->_connection->prepare($query);
 
-        // Enable encoding if not empty
-        if (!empty($this->_config['encoding'])) {
-            // Set client encoding
-            $this->_connection->prepare("SET CLIENT_ENCODING TO '" . $this->_config['encoding'] . "'");
-            // Set namespace encoding
-            $this->_connection->prepare("SET NAMES '" . $this->_config['encoding'] . "'");
-        }
+        // Execute the Statement.
+        $statement->execute();
 
-        // Set the last query
-        $this->_last_query = $sql;
-
-        // Street magic
-        switch ($mode) {
-            case 'fetch_all':
-                $result = $this->_connection->query($sql)->fetchAll(PDO::FETCH_OBJ);
-                break;
-            case 'fetch':
-                $result = $this->_connection->query($sql)->fetch(PDO::FETCH_OBJ);
-                break;
-            case 'execute':
-                $this->_connection->query($sql);
-                $result = true;
-                break;
-            case 'count':
-                $result = $this->_connection->query($sql)->rowCount();
-                break;
-            // By default - fetch_all
-            default:
-                $result = $this->_connection->query($sql)->fetchAll(PDO::FETCH_OBJ);
-                break;
-        }
-
-        return $result;
+        return $statement->fetchAll(PDO::FETCH_OBJ);
     }
 
     /**
      * Insert method
      *
-     * @param  $table table name
-     * @param  $data  array of columns and values
+     * @param  string $table table name
+     * @param  array $data array of columns and values
      * @return string
      */
     public function insert($table, $data)
@@ -92,13 +60,13 @@ class DPdo extends Database
         $fieldNames = implode(',', array_keys($data));
         $fieldValues = ':' . implode(', :', array_keys($data));
 
-        $stmt = $this->_connection->prepare("INSERT INTO $table ($fieldNames) VALUES ($fieldValues)");
+        $statement = $this->_connection->prepare("INSERT INTO $table ($fieldNames) VALUES ($fieldValues)");
 
         foreach ($data as $key => $value) {
-            $stmt->bindValue(":$key", $value);
+            $statement->bindValue(":$key", $value);
         }
 
-        $stmt->execute();
+        $statement->execute();
         return $this->_connection->lastInsertId();
     }
 
@@ -132,19 +100,19 @@ class DPdo extends Database
         }
         $whereDetails = ltrim($whereDetails, ' AND ');
 
-        $stmt = $this->_connection->prepare("UPDATE $table SET $fieldDetails WHERE $whereDetails");
+        $statement = $this->_connection->prepare("UPDATE $table SET $fieldDetails WHERE $whereDetails");
         error_log("UPDATE $table SET $fieldDetails WHERE $whereDetails", 0);
 
         foreach ($data as $key => $value) {
-            $stmt->bindValue(":field_$key", $value);
+            $statement->bindValue(":field_$key", $value);
         }
 
         foreach ($where as $key => $value) {
-            $stmt->bindValue(":where_$key", $value);
+            $statement->bindValue(":where_$key", $value);
         }
 
-        $stmt->execute();
-        return $stmt->rowCount();
+        $statement->execute();
+        return $statement->rowCount();
     }
 
 }

@@ -108,9 +108,4 @@ abstract class Database
         return true;
     }
 
-    /**
-     * Perform an SQL query of the given type.
-     */
-    abstract public function query($sql);
-
 }

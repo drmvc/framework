@@ -18,8 +18,7 @@ class DSqlite extends Database
      */
     public function connect()
     {
-        if ($this->_connection)
-            return;
+        if ($this->_connection) return;
 
         // Configurations
         $config = $this->_config;
@@ -28,43 +27,88 @@ class DSqlite extends Database
     }
 
     /**
-     * Basic query function
+     * Run a select statement against the database
      *
-     * @param  string $sql
-     * @param  null $mode fetch_all - get all rows, fetch - get first row, execute - just exec, count - lines count
-     * @return object|string|bool
+     * @param  string $query
+     * @return array
      */
-    public function query($sql, $mode = NULL)
+    public function select($query)
     {
+        $statement = $this->_connection->prepare($query);
 
-        // Make sure the database is connected
-        $this->_connection or $this->connect();
+        // Execute the Statement.
+        $statement->execute();
 
-        // Set the last query
-        $this->_last_query = $sql;
+        return $statement->fetchAll(PDO::FETCH_OBJ);
+    }
 
-        // Special street magic
-        switch ($mode) {
-            case 'fetch_all':
-                $result = $this->_connection->query($sql)->fetchAll();
-                break;
-            case 'fetch':
-                $result = $this->_connection->query($sql)->fetch();
-                break;
-            case 'execute':
-                $this->_connection->query($sql);
-                $result = true;
-                break;
-            case 'count':
-                $result = $this->_connection->query($sql)->rowCount();
-                break;
-            // By default - fetch_all
-            default:
-                $result = $this->_connection->query($sql)->fetchAll();
-                break;
+    /**
+     * Insert method
+     *
+     * @param  string $table table name
+     * @param  array $data array of columns and values
+     * @return string
+     */
+    public function insert($table, $data)
+    {
+        ksort($data);
+
+        $fieldNames = implode(',', array_keys($data));
+        $fieldValues = ':' . implode(', :', array_keys($data));
+
+        $statement = $this->_connection->prepare("INSERT INTO $table ($fieldNames) VALUES ($fieldValues)");
+
+        foreach ($data as $key => $value) {
+            $statement->bindValue(":$key", $value);
         }
 
-        return $result;
+        $statement->execute();
+        return $this->_connection->lastInsertId();
+    }
+
+    /**
+     * Update method
+     *
+     * @param  string $table table name
+     * @param  array $data array of columns and values
+     * @param  array $where array of columns and values
+     * @return string
+     */
+    public function update($table, $data, $where)
+    {
+        ksort($data);
+
+        $fieldDetails = null;
+        foreach ($data as $key => $value) {
+            $fieldDetails .= "$key = :field_$key,";
+        }
+        $fieldDetails = rtrim($fieldDetails, ',');
+
+        $whereDetails = null;
+        $i = 0;
+        foreach ($where as $key => $value) {
+            if ($i == 0) {
+                $whereDetails .= "$key = :where_$key";
+            } else {
+                $whereDetails .= " AND $key = :where_$key";
+            }
+            $i++;
+        }
+        $whereDetails = ltrim($whereDetails, ' AND ');
+
+        $statement = $this->_connection->prepare("UPDATE $table SET $fieldDetails WHERE $whereDetails");
+        error_log("UPDATE $table SET $fieldDetails WHERE $whereDetails", 0);
+
+        foreach ($data as $key => $value) {
+            $statement->bindValue(":field_$key", $value);
+        }
+
+        foreach ($where as $key => $value) {
+            $statement->bindValue(":where_$key", $value);
+        }
+
+        $statement->execute();
+        return $statement->rowCount();
     }
 
 }

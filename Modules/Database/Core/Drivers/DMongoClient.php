@@ -5,7 +5,7 @@ namespace Modules\Database\Core\Drivers;
 use Modules\Database\Core\Database;
 use MongoClient;
 
-class DMongo extends Database
+class DMongoClient extends Database
 {
 
     public function __construct($name, array $config)
