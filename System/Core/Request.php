@@ -8,6 +8,7 @@ class Request
 {
     public static $initial;
     public static $current;
+    public $_routes;
 
     /**
      * Detect current page url
@@ -189,27 +190,39 @@ class Request
      */
     public function render()
     {
-        $prefix = '\\Application\\Controllers\\';
-        $controller = $prefix . ucfirst(strtolower($this->_controller));
+        // User controllers
+        $appprefix = '\\Application\\Controllers\\';
+        $appcontroller = $appprefix . ucfirst(strtolower($this->_controller));
+        $appcontroller_file = DOCROOT . str_replace('\\', DIRECTORY_SEPARATOR, $appcontroller . '.php');
+
+        // System controllers
+        $sysprefix = '\\System\\Controllers\\';
+        $syscontroller = $sysprefix . ucfirst(strtolower($this->_controller));
+        $syscontroller_file = DOCROOT . str_replace('\\', DIRECTORY_SEPARATOR, $syscontroller . '.php');
+
+        // Controller action
         $action = 'action_' . $this->_action;
 
-        // Filename for check
-        $controller_file = DOCROOT . str_replace('\\', DIRECTORY_SEPARATOR, $controller . '.php');
+        // Application controller should replace system controller
+        switch (true) {
+            case file_exists($appcontroller_file):
+                $controller = $appcontroller;
+                $prefix = $appprefix;
+                break;
+            case file_exists($syscontroller_file):
+                $controller = $syscontroller;
+                $prefix = $sysprefix;
+                break;
+            default:
+                $controller = NULL;
+                $prefix = NULL;
+                break;
+        }
 
-        if (file_exists($controller_file)) {
-            // echo "file exist\n";
-            if (method_exists($controller, $action)) {
-                // echo "method exist\n";
-            } else {
-                // echo "method not exist\n";
-                $error = Route::get('error')->defaults();
-                $controller = $prefix . $error['controller'];
-                $action = 'action_' . $error['action'];
-            }
-        } else {
-            // echo "file not exist\n";
+        // If method into controller not exist, then error
+        if (!method_exists($controller, $action)) {
             $error = Route::get('error')->defaults();
-            $controller = $prefix . $error['controller'];
+            $controller = $appprefix . $error['controller'];
             $action = 'action_' . $error['action'];
         }
 

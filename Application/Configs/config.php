@@ -25,4 +25,9 @@ return array(
 	 * Default language code
 	 */
     'LANGUAGE_CODE' => 'en',
+
+	/**
+	 * Generate sitemap.xml
+	 */
+	'SITEMAP_GEN' => true,
 );

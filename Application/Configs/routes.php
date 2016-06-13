@@ -1,6 +1,4 @@
-<?php
-
-namespace System\Core;
+<?php namespace System\Core;
 
 /**
  * If we open page http://example.com/page
@@ -20,6 +18,21 @@ Route::set('error', 'error')
         'controller' => 'Error',
         'action' => 'index',
     ));
+
+/**
+ * If sitemap generator enabled
+ */
+if (SITEMAP_GEN === true) {
+    /**
+     * Generate sitemap from available actions
+     * Default url is http://example.com/sitemap.xml
+     */
+    Route::set('sitemap', 'sitemap.xml')
+        ->defaults(array(
+            'controller' => 'Sitemap',
+            'action' => 'index',
+        ));
+}
 
 /**
  * Default route:
