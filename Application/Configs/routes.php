@@ -11,7 +11,7 @@ Route::set('page', 'page')
 
 /**
  * If we open page http://example.com/error or wrong path.
- * Do not chanel this route name.
+ * Please, do not change this route name.
  */
 Route::set('error', 'error')
     ->defaults(array(
@@ -22,7 +22,7 @@ Route::set('error', 'error')
 /**
  * If sitemap generator enabled
  */
-if (SITEMAP_GEN === true) {
+if (SITEMAP_ENABLED === true) {
     /**
      * Generate sitemap from available actions
      * Default url is http://example.com/sitemap.xml

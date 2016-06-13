@@ -11,7 +11,7 @@ It's a minimalistic PHP 5.5 MVC framework, created under the influence of [Kohan
 * No need to describe each url-path into the routes, just use the url-templates, like page(/\<id\>)
  * You can push variables from the route directly into the controller
  * Only action_* (into your controller) functions can be executed dynamically
-* Embedded the variables Cleaner helper class
+* Embedded variables cleaner method
 
 ## Modules
 

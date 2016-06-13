@@ -4,6 +4,8 @@
     "description": "Framework for PHP 5.5+",
     "homepage": "https://github.com/DrTeamRocks/drmvc-framework",
     "license": "MIT",
+    "version": "1.0",
+    "keywords": ["mvc", "php"],
     "authors": [
         {
             "name": "Pavel Rykov",

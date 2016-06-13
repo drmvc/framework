@@ -29,5 +29,5 @@ return array(
 	/**
 	 * Generate sitemap.xml
 	 */
-	'SITEMAP_GEN' => true,
+	'SITEMAP_ENABLED' => true,
 );
