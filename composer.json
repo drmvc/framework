@@ -2,7 +2,7 @@
     "name": "drteam/drmvc-framework",
     "type": "project",
     "description": "Framework for PHP 5.5+",
-    "homepage": "https://github.com/DrTeamRocks/drmvc-framework",
+    "homepage": "http://drmvc.com/",
     "license": "MIT",
     "version": "1.0",
     "keywords": ["mvc", "php"],
@@ -20,5 +20,5 @@
     "autoload": {
         "psr-4": {"": ""}
     },
-    "minimum-stability": "dev"
+    "minimum-stability": "1.2"
 }
