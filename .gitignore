@@ -3,7 +3,6 @@ nbproject
 .kdev4
 .idea
 .kate-swp
-logs/error.log
-logs/access.log
 ~
 .directory
+vendor/

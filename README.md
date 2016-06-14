@@ -75,8 +75,10 @@ In this example route call the `Countroller\Main::action_dashboard()`, from `App
 
 ### Classic style
 
-1. Download the DrMVC framework package
+1. Download the [DrMVC framework](https://github.com/DrTeamRocks/drmvc-framework/releases) package
 
-2. Extract the archive, if needed
+2. Extract the archive
 
-3. Then edit config files in `Application/Configs` directory
+3. Initiate the styles and scripts, just run `bower install` from root directory
+
+4. Then edit config files in `Application/Configs` directory

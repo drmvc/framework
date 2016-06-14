@@ -34,7 +34,6 @@ class Main extends Controller
         $this->scripts_vendor = array(
             'jquery/dist/jquery.min.js',
             'bootstrap/dist/js/bootstrap.min.js',
-            'holderjs/holder.min.js',
         );
         // Site scripts
         $this->scripts = array();
