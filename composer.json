@@ -20,5 +20,5 @@
     "autoload": {
         "psr-4": {"": ""}
     },
-    "minimum-stability": "1.2"
+    "minimum-stability": "stable"
 }
