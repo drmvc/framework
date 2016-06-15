@@ -32,6 +32,8 @@ class Config
                 break;
             default:
                 $config = NULL;
+                echo "$appconfig not found\n";
+                echo "$sysconfig not found\n";
                 break;
         }
 
