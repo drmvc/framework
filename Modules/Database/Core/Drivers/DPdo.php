@@ -49,6 +49,17 @@ class DPdo extends Database
     }
 
     /**
+     * Exec query without return, create table for example
+     *
+     * @param $query
+     * @return mixed
+     */
+    public function exec($query)
+    {
+        return $this->_connection->exec($query);
+    }
+
+    /**
      * Insert method
      *
      * @param  string $table table name
