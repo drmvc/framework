@@ -11,7 +11,7 @@ class View
     public static function render($path, $data = false, $error = false)
     {
         // Application view
-        $appfile = APPPATH . 'Views' . DIRECTORY_SEPARATOR . $path . '.php';
+        $appfile = APPPATH . THEME . DIRECTORY_SEPARATOR . 'Views' . DIRECTORY_SEPARATOR . $path . '.php';
         // System view
         $sysfile = SYSPATH . 'Views' . DIRECTORY_SEPARATOR . $path . '.php';
 

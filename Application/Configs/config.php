@@ -27,6 +27,11 @@ return array(
 	'LANGUAGE_CODE' => 'en',
 
 	/**
+	 * Theme name
+	 */
+	'THEME' => 'default',
+
+	/**
 	 * Generate sitemap.xml
 	 */
 	'SITEMAP_ENABLED' => true,
