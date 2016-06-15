@@ -193,12 +193,12 @@ class Request
         // User controllers
         $appprefix = '\\Application\\Controllers\\';
         $appcontroller = $appprefix . ucfirst(strtolower($this->_controller));
-        $appcontroller_file = DOCROOT . str_replace('\\', DIRECTORY_SEPARATOR, $appcontroller . '.php');
+        $appcontroller_file = APPPATH . DIRECTORY_SEPARATOR . 'Controllers' . DIRECTORY_SEPARATOR . ucfirst(strtolower($this->_controller)) . '.php';
 
         // System controllers
         $sysprefix = '\\System\\Controllers\\';
         $syscontroller = $sysprefix . ucfirst(strtolower($this->_controller));
-        $syscontroller_file = DOCROOT . str_replace('\\', DIRECTORY_SEPARATOR, $syscontroller . '.php');
+        $syscontroller_file = SYSPATH . DIRECTORY_SEPARATOR . 'Controllers' . DIRECTORY_SEPARATOR . ucfirst(strtolower($this->_controller)) . '.php';
 
         // Controller action
         $action = 'action_' . $this->_action;
