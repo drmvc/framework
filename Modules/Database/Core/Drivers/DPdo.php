@@ -10,6 +10,8 @@ class DPdo extends Database
     public function __construct($name, array $config)
     {
         parent::__construct($name, $config);
+
+        if (!$this->_connection) $this->connect();
     }
 
     /**
