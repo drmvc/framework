@@ -71,7 +71,7 @@ In this example route call the `Countroller\Main::action_dashboard()`, from `App
 
 ### Via composer
 
-`composer require drteam/drmvc-framework "@dev"`
+`composer require drteam/drmvc-framework`
 
 ### Classic style
 
