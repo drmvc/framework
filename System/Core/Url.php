@@ -15,7 +15,7 @@ class Url
     public static function redirect($url = null, $fullpath = false)
     {
         if ($fullpath == false) {
-            $url = '/' . $url;
+            $url = URL . DIR . $url;
         }
 
         header('Location: ' . $url);
