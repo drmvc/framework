@@ -1,13 +1,31 @@
-<?php
+<?php namespace System\Core;
 /**
  * Helper class with simple functions
+ * @package System\Core
  */
-
-namespace System\Core;
-
 
 class Helpers
 {
+    /**
+     * Generate correct url from string
+     *
+     * @param $slug
+     * @return string
+     */
+    function create_slug($slug)
+    {
+
+        $lettersNumbersSpacesHyphens = '/[^\-\s\pN\pL]+/u';
+        $spacesDuplicateHypens = '/[\-\s]+/';
+
+        $slug = preg_replace($lettersNumbersSpacesHyphens, '', $slug);
+        $slug = preg_replace($spacesDuplicateHypens, '-', $slug);
+
+        $slug = trim($slug, '-');
+
+        return mb_strtolower($slug, 'UTF-8');
+    }
+
     /**
      * Multidimensional search
      *
