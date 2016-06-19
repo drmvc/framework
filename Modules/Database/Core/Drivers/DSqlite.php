@@ -122,4 +122,50 @@ class DSqlite extends Database
         return $statement->rowCount();
     }
 
+
+    /**
+     * Delete rows from database
+     *
+     * @param $table
+     * @param $where
+     * @param int $limit
+     */
+    public function delete($table, $where, $limit = 1)
+    {
+
+        ksort($where);
+
+        $whereDetails = NULL;
+        $i = 0;
+        foreach ($where as $key => $value) {
+            if ($i == 0) {
+                $whereDetails .= "$key = :where_$key";
+            } else {
+                $whereDetails .= " AND $key = :where_$key";
+            }
+            $i++;
+        }
+        $whereDetails = ltrim($whereDetails, ' AND ');
+
+        $statement = $this->_connection->prepare("DELETE FROM $table WHERE $whereDetails");
+        error_log("DELETE FROM $table WHERE $whereDetails", 0);
+
+        foreach ($where as $key => $value) {
+            $statement->bindValue(":where_$key", $value);
+        }
+
+        $statement->execute();
+    }
+
+    /**
+     * Clean table function
+     *
+     * @param $table
+     * @return mixed
+     */
+    public function truncate($table)
+    {
+        return $this->exec("TRUNCATE TABLE $table");
+    }
+
 }
