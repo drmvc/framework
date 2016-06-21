@@ -2,7 +2,33 @@
 
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/DrTeamRocks/drmvc-framework/master/license.txt)
 
-It's a minimalistic PHP 5.5 MVC framework, created under the influence of [Kohana](https://github.com/kohana/kohana) and [SimpleMVC](https://github.com/simple-mvc-framework/framework), and have a some similar functionality.
+It's a minimalistic PHP 5.5 MVC framework.
+
+## How to install
+
+### Via composer
+
+Stable release: `composer require drteam/drmvc-framework`
+
+Unstable release: `composer require drteam/drmvc-framework "@dev"`
+
+### Classic style
+
+1. Download the [DrMVC framework](https://github.com/DrTeamRocks/drmvc-framework/releases) package
+
+2. Extract the archive
+
+## After install
+
+* Initiate the styles and scripts, just run `bower install` from root directory
+
+* Then edit config files in `Application/Configs` directory
+
+## Where to get help
+
+If you need help with this project, you can read detailed instruction on [Documentation](http://drmvc.com/docs/v1) page or read more about [API](http://drmvc.com/api/v1). 
+
+If found the bug, please report about this on [GitHib issues](https://github.com/DrTeamRocks/drmvc-framework/issues) page.
 
 ## Some features
 
@@ -13,7 +39,7 @@ It's a minimalistic PHP 5.5 MVC framework, created under the influence of [Kohan
  * Only action_* (into your controller) functions can be executed dynamically
 * Embedded variables cleaner method
 
-## Modules
+## Available Plugins
 
 * **Database** - default database module, supports:
  * Multiple database instances
@@ -29,56 +55,14 @@ It's a minimalistic PHP 5.5 MVC framework, created under the influence of [Kohan
 
 * [**PHPZabbixAPI**](https://github.com/confirm/PhpZabbixApi) - class for integration with Zabbix
 
-## How routing works
+## Contributors
 
-Default routes stored in:
+* @PavelRykov paul@drteam.rocks
 
-* `Application/Configs/routes.php`
+## What inspired and what alternatives
 
-But if you need set the some system routes, you can create file:
+Created under the influence and have a some similar functionality.
 
-* `System/Configs/routes.php`
+* [Kohana](https://github.com/kohana/kohana) - Routing it is a very interesting part of this project
 
-Routes by default:
-
-```php
-Route::set('error', 'error')
-    ->defaults(array(
-        'controller' => 'Error',
-        'action' => 'index',
-    ));
-
-Route::set('default', '(<controller>(/<action>(/<id>)))')
-    ->defaults(array(
-        'controller' => 'Index',
-        'action' => 'index',
-    ));
-```
-
-If you need add new routes, just edit the `routes.php` file, for example:
-
-```php
-$route_name = 'main';
-$route_url_with_regexp = 'main/example';
-
-Route::set($route_name, $route_url_with_regexp)
- ->defaults(array('controller' => 'Main', 'action' => 'dashboard' ));
-```
-
-In this example route call the `Countroller\Main::action_dashboard()`, from `Application/Controllers` directory if we open the http://yoursite.com/main/example
-
-## How to install
-
-### Via composer
-
-`composer require drteam/drmvc-framework`
-
-### Classic style
-
-1. Download the [DrMVC framework](https://github.com/DrTeamRocks/drmvc-framework/releases) package
-
-2. Extract the archive
-
-3. Initiate the styles and scripts, just run `bower install` from root directory
-
-4. Then edit config files in `Application/Configs` directory
+* [SimpleMVC](https://github.com/simple-mvc-framework/framework) - it was a very exciting project, before the author renamed this to Nova
