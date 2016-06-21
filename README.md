@@ -57,7 +57,7 @@ If found the bug, please report about this on [GitHib issues](https://github.com
 
 ## Contributors
 
-* @PavelRykov paul@drteam.rocks
+* [@PavelRykov](https://github.com/PavelRykov) paul@drteam.rocks
 
 ## What inspired and what alternatives
 
