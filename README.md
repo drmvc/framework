@@ -28,7 +28,7 @@ Unstable release: `composer require drteam/drmvc-framework "@dev"`
 
 If you need help with this project, you can read detailed instruction on [Documentation](http://drmvc.com/docs/v1) page or read more about [API](http://drmvc.com/api/v1). 
 
-If found the bug, please report about this on [GitHib issues](https://github.com/DrTeamRocks/drmvc-framework/issues) page.
+If you found the bug, please report about this on [GitHub Issues](https://github.com/DrTeamRocks/drmvc-framework/issues) page.
 
 ## Some features
 
