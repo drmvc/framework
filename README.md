@@ -2,7 +2,9 @@
 
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/DrTeamRocks/drmvc-framework/master/license.txt)
 
-It's a minimalistic PHP 5.5 MVC framework.
+It's a minimalistic PHP 5.3+ MVC framework.
+
+DrMVC Framework now is fully PHP 7 compatible.
 
 ## How to install
 
@@ -39,25 +41,9 @@ If you found the bug, please report about this on [GitHub Issues](https://github
  * Only action_* (into your controller) functions can be executed dynamically
 * Embedded variables cleaner method
 
-## Available Plugins
+## Developers
 
-* **Database** - default database module, supports:
- * Multiple database instances
- * PDO databases like MySQL, or PostgreSQL
- * Mongo through MongoClient and MongoDB driver
- * SQLite (Via PDO driver, but have some fix for correct work)
-
-* **DatabaseSimple** - ported from SimpleMVC `Helpers\Database` class
- * Use single database instance
- * PDO databases like MySQL, or PostgreSQL
-
-* [**PHPMailer**](https://github.com/PHPMailer/PHPMailer) - awesome mailer class for your site
-
-* [**PHPZabbixAPI**](https://github.com/confirm/PhpZabbixApi) - class for integration with Zabbix
-
-## Contributors
-
-* [@PavelRykov](https://github.com/PavelRykov)
+* [Paul Rykov](https://github.com/PavelRykov)
 
 ## What inspired and what alternatives
 
