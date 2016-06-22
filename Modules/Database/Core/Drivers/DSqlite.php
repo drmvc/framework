@@ -34,6 +34,9 @@ class DSqlite extends Database
      */
     public function select($query)
     {
+        // Make sure the database is connected
+        $this->_connection or $this->connect();
+
         $statement = $this->_connection->prepare($query);
 
         // Execute the Statement.
@@ -62,6 +65,9 @@ class DSqlite extends Database
      */
     public function insert($table, $data)
     {
+        // Make sure the database is connected
+        $this->_connection or $this->connect();
+
         ksort($data);
 
         $fieldNames = implode(',', array_keys($data));
@@ -87,6 +93,9 @@ class DSqlite extends Database
      */
     public function update($table, $data, $where)
     {
+        // Make sure the database is connected
+        $this->_connection or $this->connect();
+
         ksort($data);
 
         $fieldDetails = null;
@@ -132,6 +141,8 @@ class DSqlite extends Database
      */
     public function delete($table, $where, $limit = 1)
     {
+        // Make sure the database is connected
+        $this->_connection or $this->connect();
 
         ksort($where);
 
@@ -165,6 +176,9 @@ class DSqlite extends Database
      */
     public function truncate($table)
     {
+        // Make sure the database is connected
+        $this->_connection or $this->connect();
+
         return $this->exec("TRUNCATE TABLE $table");
     }
 
