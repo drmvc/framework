@@ -1,17 +1,23 @@
-<?php
-/**
- * Database Model base class.
- */
+<?php namespace Modules\Database\Core;
 
-namespace Modules\Database\Core;
+/**
+ * Database Model base class, this class like abstracted class, should be reassign via another driver class
+ * @package Modules\Database\Core
+ */
 
 use System\Core\Config;
 use System\Core\Model as System_Model;
 
 abstract class Model extends System_Model
 {
+    // Database protected instance
+    protected $_db;
+
+    // Database public instance
+    public $db;
+
     /**
-     * Create a new model instance.
+     * Create a new model instance
      *
      * @param $name
      * @param null $db
@@ -33,17 +39,11 @@ abstract class Model extends System_Model
         }
     }
 
-    // Database protected instance
-    protected $_db;
-    // Database public instance
-    public $db;
-
     /**
-     * Load database if dbname exist
+     * Load database if dbname from config is exist
      *
      * @param null $db
      */
-
     public function __construct($db = NULL)
     {
         if ($db) {

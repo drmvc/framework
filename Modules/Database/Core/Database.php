@@ -1,12 +1,32 @@
-<?php
+<?php namespace Modules\Database\Core;
 
-namespace Modules\Database\Core;
+/**
+ * Class Database for work with databases
+ * @package Modules\Database\Core
+ */
+
+use System\Core\Config;
 
 abstract class Database
 {
 
+    // Default database name
     public static $default = 'default';
+
+    // For multiple instances
     public static $instances = array();
+
+    // Instance name
+    protected $_instance;
+
+    // Raw server connection
+    protected $_connection;
+
+    // Configuration array
+    protected $_config;
+
+    // Configuration array
+    protected $_last_query;
 
     /**
      * Get a singleton Database instance. If configuration is not specified,
@@ -27,7 +47,7 @@ abstract class Database
         if (!isset(Database::$instances[$name])) {
             if ($config === NULL) {
                 // Load the configuration for this database
-                $config = \System\Core\Config::load('database')[$name];
+                $config = Config::load('database')[$name];
             }
 
             // Set the driver class name
@@ -44,23 +64,11 @@ abstract class Database
         return Database::$instances[$name];
     }
 
-    // Instance name
-    protected $_instance;
-
-    // Raw server connection
-    protected $_connection;
-
-    // Configuration array
-    protected $_config;
-
-    // Configuration array
-    protected $_last_query;
-
     /**
      * Stores the database configuration locally and name the instance.
      * [!!] This method cannot be accessed directly, you must use [Database::init].
      *
-     * @param $name
+     * @param string $name
      * @param array $config
      */
     public function __construct($name, array $config)
@@ -77,6 +85,8 @@ abstract class Database
 
     /**
      * Return last query
+     *
+     * @return mixed
      */
     public function last_query()
     {
@@ -84,7 +94,9 @@ abstract class Database
     }
 
     /**
-     * Disconnect from the database when the object is destroyed.
+     * Disconnect from the database when the object is destroyed
+     *
+     * @return bool
      */
     public function __destruct()
     {
@@ -94,12 +106,16 @@ abstract class Database
     /**
      * Connect to the database. This is called automatically when the first
      * query is executed.
+     *
+     * @return mixed
      */
     abstract public function connect();
 
     /**
      * Disconnect from the database. This is called automatically by [Database::__destruct].
      * Clears the database instance from [Database::$instances].
+     *
+     * @return bool
      */
     public function disconnect()
     {

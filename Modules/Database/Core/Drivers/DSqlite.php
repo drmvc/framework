@@ -1,13 +1,21 @@
-<?php
+<?php namespace Modules\Database\Core\Drivers;
 
-namespace Modules\Database\Core\Drivers;
+/**
+ * Extended PDO class for work with SQLite driver
+ * @package Modules\Database\Core\Drivers
+ */
 
 use Modules\Database\Core\Database;
 use PDO;
 
 class DSqlite extends Database
 {
-
+    /**
+     * DSqlite constructor
+     *
+     * @param string $name
+     * @param array $config
+     */
     public function __construct($name, array $config)
     {
         parent::__construct($name, $config);
@@ -34,8 +42,7 @@ class DSqlite extends Database
      */
     public function select($query)
     {
-        // Make sure the database is connected
-        $this->_connection or $this->connect();
+        $this->connect();
 
         $statement = $this->_connection->prepare($query);
 
@@ -53,6 +60,8 @@ class DSqlite extends Database
      */
     public function exec($query)
     {
+        $this->connect();
+
         return $this->_connection->exec($query);
     }
 
@@ -65,8 +74,7 @@ class DSqlite extends Database
      */
     public function insert($table, $data)
     {
-        // Make sure the database is connected
-        $this->_connection or $this->connect();
+        $this->connect();
 
         ksort($data);
 
@@ -74,6 +82,7 @@ class DSqlite extends Database
         $fieldValues = ':' . implode(', :', array_keys($data));
 
         $statement = $this->_connection->prepare("INSERT INTO $table ($fieldNames) VALUES ($fieldValues)");
+        error_log("INSERT INTO $table ($fieldNames) VALUES ($fieldValues)", 0);
 
         foreach ($data as $key => $value) {
             $statement->bindValue(":$key", $value);
@@ -93,8 +102,7 @@ class DSqlite extends Database
      */
     public function update($table, $data, $where)
     {
-        // Make sure the database is connected
-        $this->_connection or $this->connect();
+        $this->connect();
 
         ksort($data);
 
@@ -141,8 +149,7 @@ class DSqlite extends Database
      */
     public function delete($table, $where, $limit = 1)
     {
-        // Make sure the database is connected
-        $this->_connection or $this->connect();
+        $this->connect();
 
         ksort($where);
 
@@ -176,8 +183,7 @@ class DSqlite extends Database
      */
     public function truncate($table)
     {
-        // Make sure the database is connected
-        $this->_connection or $this->connect();
+        $this->connect();
 
         return $this->exec("TRUNCATE TABLE $table");
     }

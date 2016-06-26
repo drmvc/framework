@@ -1,6 +1,9 @@
-<?php
+<?php namespace Modules\Database\Core\Drivers;
 
-namespace Modules\Database\Core\Drivers;
+/**
+ * Class for work with PDO drivers
+ * @package Modules\Database\Core\Drivers
+ */
 
 use Modules\Database\Core\Database;
 use PDO;

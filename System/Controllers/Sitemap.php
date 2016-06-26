@@ -19,6 +19,9 @@ class Sitemap extends Controller
         parent::__construct();
     }
 
+    /**
+     * sitemap.xml alias page
+     */
     public function action_index()
     {
         $appnamespace = '\\Application\\Controllers\\';

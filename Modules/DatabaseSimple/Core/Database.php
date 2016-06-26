@@ -1,12 +1,13 @@
-<?php
-
-namespace Modules\DatabaseSimple\Core;
-
-use \PDO;
+<?php namespace Modules\DatabaseSimple\Core;
 
 /**
- * Extending PDO to use custom methods.
+ * Extending PDO to use custom methods
+ * @package Modules\DatabaseSimple\Core
  */
+
+use System\Core\Config;
+use PDO;
+
 class Database extends PDO
 {
     public static $default = 'default';
@@ -30,7 +31,7 @@ class Database extends PDO
 
         if ($config === NULL) {
             // Load the configuration for this database
-            $config = \System\Core\Config::load('database_simple');
+            $config = Config::load('database_simple');
         }
 
         // Group information

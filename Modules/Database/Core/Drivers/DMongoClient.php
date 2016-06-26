@@ -1,6 +1,9 @@
-<?php
+<?php namespace Modules\Database\Core\Drivers;
 
-namespace Modules\Database\Core\Drivers;
+/**
+ * Old and unsupported MongoDB php driver for mongo < 0.9.0
+ * @package Modules\Database\Core\Drivers
+ */
 
 use Modules\Database\Core\Database;
 use MongoClient;
@@ -8,6 +11,12 @@ use MongoClient;
 class DMongoClient extends Database
 {
 
+    /**
+     * DMongoClient constructor
+     *
+     * @param $name
+     * @param array $config
+     */
     public function __construct($name, array $config)
     {
         parent::__construct($name, $config);
@@ -18,8 +27,7 @@ class DMongoClient extends Database
      */
     public function connect()
     {
-        if ($this->_connection)
-            return;
+        if ($this->_connection) return;
 
         // Configurations
         $config = $this->_config;
@@ -28,7 +36,13 @@ class DMongoClient extends Database
         $this->_connection = new MongoClient('mongodb://' . $config['username'] . ':' . $config['password'] . '@' . $config['hostname'] . ':' . $config['port'] . '/' . $config['database']);
     }
 
-    // Basic query function
+    /**
+     * Basic query function
+     *
+     * @param $collection_name
+     * @param null $mode
+     * @return mixed
+     */
     public function query($collection_name, $mode = NULL)
     {
         // Make sure the database is connected

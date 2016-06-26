@@ -1,9 +1,9 @@
-<?php
-/**
- * DatabaseSimple Model base class.
- */
+<?php namespace Modules\DatabaseSimple\Core;
 
-namespace Modules\DatabaseSimple\Core;
+/**
+ * DatabaseSimple Model base class
+ * @package Modules\DatabaseSimple\Core
+ */
 
 use System\Core\Config;
 use System\Core\Model as System_Model;
