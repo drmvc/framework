@@ -2,23 +2,23 @@
 
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/DrTeamRocks/drmvc-framework/master/license.txt)
 
-It's a minimalistic PHP 5.3+ MVC framework.
+It's a minimalistic PHP5 and PHP7 MVC framework with dynamic routing and any databases what support your hosting.
 
-DrMVC Framework now is fully PHP 7 compatible.
+You can work simultaneously with multiple databases, for example with MySQL and MongoDB from one controller, or with MSSQL and MySQL via same model class.
 
 ## How to install
 
 ### Via composer
 
-Stable release: `composer require drteam/drmvc-framework`
+* Stable release: `composer require drteam/drmvc-framework`
 
-Unstable release: `composer require drteam/drmvc-framework "@dev"`
+* Unstable release: `composer require drteam/drmvc-framework "@dev"`
 
 ### Classic style
 
-1. Download the [DrMVC framework](https://github.com/DrTeamRocks/drmvc-framework/releases) package
+* Download the [DrMVC framework](https://github.com/DrTeamRocks/drmvc-framework/releases) package
 
-2. Extract the archive
+* Extract the archive
 
 ## After install
 
@@ -36,10 +36,12 @@ If you found the bug, please report about this on [GitHub Issues](https://github
 
 * The default database driver can work with most popular databases (eg. Mongo or PostgreSQL, or MySQL etc.)
 * Simultaneous use of several localization files
-* No need to describe each url-path into the routes, just use the url-templates, like page(/\<id\>)
+* Multiple templates support
+* No need to describe each url-path into the routes, just use the url-templates, like "page(/\<id\>)"
  * You can push variables from the route directly into the controller
  * Only action_* (into your controller) functions can be executed dynamically
 * Embedded variables cleaner method
+* Slug-url generator into URL class
 
 ## Developers
 
