@@ -10,6 +10,10 @@
     <p><?php echo $data['lng_sec']['second_welcome']; ?></p>
 </div>
 
+<div class="well">
+    <p>UUID v4: <?php echo $data['uuid']; ?></p>
+</div>
+
 <ul class="nav nav-pills">
     <li role="presentation" class="active"><a href="/">Index</a></li>
     <li role="presentation"><a href="/page">Page</a></li>

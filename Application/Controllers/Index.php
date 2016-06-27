@@ -44,6 +44,9 @@ class Index extends Main
         // Get second language
         $data['lng_sec'] = $this->language->read('second');
 
+        // Generate the uuid
+        $data['uuid'] = \System\Core\Helpers\UUID::v4();
+
         View::render('templates/header', $data);
         View::render('index', $data);
         View::render('templates/footer', $data);
