@@ -5,9 +5,9 @@
 </div>
 
 <div class="well">
-    <h2><?php echo SITETITLE . ' &mdash; ' . $data['lng_sec']['second']; ?></h2>
+    <h2><?php echo SITETITLE . ' &mdash; ' . $data['lng']->get('second'); ?></h2>
 
-    <p><?php echo $data['lng_sec']['second_welcome']; ?></p>
+    <p><?php echo $data['lng']->get('second_welcome'); ?></p>
 </div>
 
 <div class="well">

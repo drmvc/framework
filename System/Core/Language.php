@@ -11,7 +11,7 @@ class Language
      *
      * @var array
      */
-    private $array;
+    private $array = array();
 
     /**
      * Variable holds language filename.
@@ -39,13 +39,10 @@ class Language
         /** lang file */
         $file = APPPATH . "Language" . DIRECTORY_SEPARATOR . "$code" . DIRECTORY_SEPARATOR . "$name.php";
 
-        /** keep name */
-        $this->filename = $name;
-
         /** check if is readable */
         if (is_readable($file)) {
             /** require file */
-            $this->array[$name] = include($file);
+            $this->array = array_merge($this->array, include($file));
         } else {
             /** display error */
             echo Error::display("Could not load language file '$code" . DIRECTORY_SEPARATOR . "$name.php'");
@@ -84,8 +81,8 @@ class Language
      */
     public function get($value)
     {
-        if (!empty($this->array[$this->filename][$value])) {
-            return $this->array[$this->filename][$value];
+        if (!empty($this->array[$value])) {
+            return $this->array[$value];
         } else {
             return $value;
         }

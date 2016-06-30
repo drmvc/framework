@@ -40,6 +40,8 @@ class Main extends Controller
 
         // Include Application/Language/LANGUAGE_CODE/index.php file
         $this->language->load('index');
+        // Include Application/Language/LANGUAGE_CODE/second.php file
+        $this->language->load('second');
     }
 
 }

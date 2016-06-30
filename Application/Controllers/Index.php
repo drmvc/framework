@@ -1,6 +1,7 @@
 <?php namespace Application\Controllers;
 
 use System\Core\View;
+use System\Core\Helpers\UUID;
 
 // Get the example model
 use Application\Models\Example as Model_Example;
@@ -41,11 +42,8 @@ class Index extends Main
         // Get the main language object
         $data['lng'] = $this->language;
 
-        // Get second language
-        $data['lng_sec'] = $this->language->read('second');
-
         // Generate the uuid
-        $data['uuid'] = \System\Core\Helpers\UUID::v4();
+        $data['uuid'] = UUID::v4();
 
         View::render('templates/header', $data);
         View::render('index', $data);
