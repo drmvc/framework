@@ -19,6 +19,8 @@ class DSqlite extends Database
     public function __construct($name, array $config)
     {
         parent::__construct($name, $config);
+
+        if (!$this->_connection) $this->connect();
     }
 
     /**
@@ -42,8 +44,6 @@ class DSqlite extends Database
      */
     public function select($query)
     {
-        $this->connect();
-
         $statement = $this->_connection->prepare($query);
 
         // Execute the Statement.
@@ -60,8 +60,6 @@ class DSqlite extends Database
      */
     public function exec($query)
     {
-        $this->connect();
-
         return $this->_connection->exec($query);
     }
 
@@ -74,8 +72,6 @@ class DSqlite extends Database
      */
     public function insert($table, $data)
     {
-        $this->connect();
-
         ksort($data);
 
         $fieldNames = implode(',', array_keys($data));
@@ -102,8 +98,6 @@ class DSqlite extends Database
      */
     public function update($table, $data, $where)
     {
-        $this->connect();
-
         ksort($data);
 
         $fieldDetails = null;
@@ -149,8 +143,6 @@ class DSqlite extends Database
      */
     public function delete($table, $where, $limit = 1)
     {
-        $this->connect();
-
         ksort($where);
 
         $whereDetails = NULL;
@@ -183,8 +175,6 @@ class DSqlite extends Database
      */
     public function truncate($table)
     {
-        $this->connect();
-
         return $this->exec("TRUNCATE TABLE $table");
     }
 

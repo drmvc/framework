@@ -7,6 +7,7 @@
 
 use Modules\Database\Core\Database;
 use PDO;
+use PDOException;
 
 class DPdo extends Database
 {
@@ -66,10 +67,11 @@ class DPdo extends Database
      * Insert method
      *
      * @param  string $table table name
-     * @param  array $data array of columns and values
+     * @param  array  $data array of columns and values
+     * @param  null   $return_id id name if need return
      * @return string
      */
-    public function insert($table, $data)
+    public function insert($table, $data, $return_id = null)
     {
         ksort($data);
 
@@ -82,8 +84,43 @@ class DPdo extends Database
             $statement->bindValue(":$key", $value);
         }
 
-        $statement->execute();
-        return $this->_connection->lastInsertId();
+        try {
+            $this->_connection->beginTransaction();
+            $statement->execute();
+            $this->_connection->commit();
+            return true;
+        } catch (PDOException $e) {
+            $this->_connection->rollback();
+            return "Error!: " . $e->getMessage() . "</br>";
+        }
+    }
+
+    /**
+     * Get last inserted id from special table
+     *
+     * @param $table
+     * @param null $column
+     * @return array|bool
+     */
+    public function last_insert_id($table, $column = null) {
+        // Configurations
+        $config = $this->_config;
+
+        switch ($config['driver']) {
+            case 'pgsql':
+                // The sequence object created by PostgreSQL is automatically named [table]_[column]_seq
+                $return = $this->_connection->lastInsertId("{$table}_{$column}_seq");
+                break;
+            case 'mysql':
+                // In MySQL we can use special function
+                $return = $this->select("SELECT LAST_INSERT_ID() FROM {$table}");
+                break;
+            default:
+                $return = false;
+                break;
+        }
+
+        return $return;
     }
 
     /**
@@ -140,7 +177,6 @@ class DPdo extends Database
      */
     public function delete($table, $where, $limit = 1)
     {
-
         ksort($where);
 
         $whereDetails = NULL;

@@ -23,7 +23,7 @@ abstract class Model extends System_Model
      * @param null $db
      * @return bool
      */
-    public static function init($name, $db = NULL)
+    public static function init($name, $db = null)
     {
         $prefix = '\\Application\\Models\\';
         $model = $prefix . ucfirst(strtolower($name));
@@ -40,11 +40,11 @@ abstract class Model extends System_Model
     }
 
     /**
-     * Load database if dbname from config is exist
+     * Open connect to database after model start construct
      *
      * @param null $db
      */
-    public function __construct($db = NULL)
+    public function __construct($db = null)
     {
         if ($db) {
             // Set the instance or name
@@ -54,7 +54,7 @@ abstract class Model extends System_Model
             $this->_db = Database::$default;
         }
 
-        $config = Config::load('database');
+        $config = Config::load('database', true);
         $this->_config = $config[$this->_db];
         $this->_config['path'] = $config['path'];
 
