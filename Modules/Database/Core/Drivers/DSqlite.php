@@ -40,11 +40,19 @@ class DSqlite extends Database
      * Run a select statement against the database
      *
      * @param  string $query
+     * @param  array  $array parameter into named array
      * @return array
      */
-    public function select($query)
+    public function select($query, $array = array())
     {
-        $statement = $this->_connection->prepare($query);
+        $statement = $this->prepare($query);
+        foreach ($array as $key => $value) {
+            if (is_int($value)) {
+                $statement->bindValue("$key", $value, PDO::PARAM_INT);
+            } else {
+                $statement->bindValue("$key", $value);
+            }
+        }
 
         // Execute the Statement.
         $statement->execute();
