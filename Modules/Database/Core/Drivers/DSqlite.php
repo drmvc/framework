@@ -45,7 +45,7 @@ class DSqlite extends Database
      */
     public function select($query, $array = array())
     {
-        $statement = $this->prepare($query);
+        $statement = $this->_connection->prepare($query);
         foreach ($array as $key => $value) {
             if (is_int($value)) {
                 $statement->bindValue("$key", $value, PDO::PARAM_INT);
