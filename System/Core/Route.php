@@ -14,7 +14,8 @@ class Route
     const REGEX_KEY     = '<([a-zA-Z0-9_]++)>';
 
     // What can be part of a <segment> value
-    const REGEX_SEGMENT = '[^/.,;?\n]++';
+    //const REGEX_SEGMENT = '[^/.,;?\n]++';
+    const REGEX_SEGMENT = '[^/,;?\n]++';
 
     // What must be escaped in the route regex
     const REGEX_ESCAPE  = '[.\\+*?[^\\]${}=!|]';
