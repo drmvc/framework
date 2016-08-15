@@ -121,7 +121,7 @@ class DPdo extends Database
                 break;
             case 'mysql':
                 // In MySQL we can use special function
-                $return = $this->select("SELECT LAST_INSERT_ID() FROM {$table}");
+                $return = $this->select("SELECT LAST_INSERT_ID() as id FROM {$table} LIMIT 1;");
                 break;
             default:
                 $return = false;
