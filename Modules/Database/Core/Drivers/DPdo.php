@@ -160,9 +160,10 @@ class DPdo extends Database
             $i++;
         }
         $whereDetails = ltrim($whereDetails, ' AND ');
+        if (!empty($where)) $whereDetails = ' WHERE ' . $whereDetails;
 
-        $statement = $this->_connection->prepare("UPDATE $table SET $fieldDetails WHERE $whereDetails");
-        error_log("UPDATE $table SET $fieldDetails WHERE $whereDetails", 0);
+        $statement = $this->_connection->prepare("UPDATE $table SET $fieldDetails $whereDetails");
+        //error_log("UPDATE $table SET $fieldDetails $whereDetails", 0);
 
         foreach ($data as $key => $value) {
             $statement->bindValue(":field_$key", $value);
