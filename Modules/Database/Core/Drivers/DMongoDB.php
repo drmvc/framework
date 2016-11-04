@@ -76,7 +76,7 @@ class DMongoDB extends Database
         try {
             $writeConcern = new \MongoDB\Driver\WriteConcern(\MongoDB\Driver\WriteConcern::MAJORITY, 1000);
             $this->_connection->executeBulkWrite($config['database'] . '.' . $collection, $bulk, $writeConcern);
-            if ($command == 'insert') $response = $data['_id']; else $response = true;
+            if ($command == 'insert') $response = (string) new \MongoDB\BSON\ObjectID($data['_id']); else $response = true;
         } catch (\MongoDB\Driver\Exception\BulkWriteException $e) {
             //print_r($e);die();
             echo $e->getMessage(), "\n";
