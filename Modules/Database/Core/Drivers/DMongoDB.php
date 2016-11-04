@@ -60,7 +60,7 @@ class DMongoDB extends Database
         // Exec bulk command
         $bulk = new BulkWrite();
 
-        switch($command) {
+        switch ($command) {
             case 'insert':
                 $data['_id'] = new \MongoDB\BSON\ObjectID;
                 $bulk->insert($data);
@@ -75,7 +75,8 @@ class DMongoDB extends Database
 
         try {
             $writeConcern = new \MongoDB\Driver\WriteConcern(\MongoDB\Driver\WriteConcern::MAJORITY, 1000);
-            $response = $this->_connection->executeBulkWrite($config['database'] . '.' . $collection, $bulk, $writeConcern);
+            $this->_connection->executeBulkWrite($config['database'] . '.' . $collection, $bulk, $writeConcern);
+            if ($command == 'insert') $response = $data['_id']; else $response = true;
         } catch (\MongoDB\Driver\Exception\BulkWriteException $e) {
             //print_r($e);die();
             echo $e->getMessage(), "\n";
