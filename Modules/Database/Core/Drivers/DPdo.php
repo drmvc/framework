@@ -40,7 +40,7 @@ class DPdo extends Database
      * Run a select statement against the database
      *
      * @param  string $query
-     * @param  array  $array parameter into named array
+     * @param  array $array parameter into named array
      * @return array
      */
     public function select($query, $array = array())
@@ -75,8 +75,8 @@ class DPdo extends Database
      * Insert method
      *
      * @param  string $table table name
-     * @param  array  $data array of columns and values
-     * @param  null   $return_id id name if need return
+     * @param  array $data array of columns and values
+     * @param  null $return_id id name if need return
      * @return string
      */
     public function insert($table, $data, $return_id = null)
@@ -110,7 +110,8 @@ class DPdo extends Database
      * @param null $column
      * @return array|bool
      */
-    public function last_insert_id($table, $column = null) {
+    public function last_insert_id($table, $column = null)
+    {
         // Configurations
         $config = $this->_config;
 
@@ -141,6 +142,9 @@ class DPdo extends Database
      */
     public function update($table, $data, $where)
     {
+        // Configurations
+        $config = $this->_config;
+
         ksort($data);
 
         $fieldDetails = null;
@@ -152,10 +156,15 @@ class DPdo extends Database
         $whereDetails = null;
         $i = 0;
         foreach ($where as $key => $value) {
-            if ($i == 0) {
-                $whereDetails .= "$key = :where_$key";
-            } else {
-                $whereDetails .= " AND $key = :where_$key";
+            switch ($config['driver']) {
+                case 'mysql':
+                    if ($i == 0) $whereDetails .= "`$key` = :where_$key";
+                    else $whereDetails .= " AND `$key` = :where_$key";
+                    break;
+                default:
+                    if ($i == 0) $whereDetails .= "$key = :where_$key";
+                    else $whereDetails .= " AND $key = :where_$key";
+                    break;
             }
             $i++;
         }
