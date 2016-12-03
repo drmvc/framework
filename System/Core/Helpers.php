@@ -122,6 +122,11 @@ class Helpers
                 $value = preg_replace(array("/\r\n\r\n/", "/\n\n/"), array("<br/>", "<br/>"), $value);
                 $value = preg_replace("/[^а-яёa-z\.\,\_\-\+\=\?\(\)\!0-9]/iu", "", $value);
                 break;
+            case 'json':
+                $value = htmlspecialchars($value, ENT_QUOTES);
+                $value = preg_replace(array("/\r\n\r\n/", "/\n\n/"), array("<br/>", "<br/>"), $value);
+                $value = preg_replace("/[^а-яёa-z0-9\—\~\`\.\,\@\%\{\}\[\]\/\:\<\>\\\;\?\&\(\)\_\#\!\$\*\^\-\+\=\ \n\r]/iu", "", $value);
+                break;
             default:
                 $value = htmlspecialchars($value, ENT_QUOTES);
                 $value = preg_replace(array("/\r\n\r\n/", "/\n\n/"), array("<br/>", "<br/>"), $value);
