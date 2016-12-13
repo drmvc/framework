@@ -1,4 +1,8 @@
 <?php
+/**
+ * Default template of sitemap, you can change the class and action to yours
+ */
+
 header("Content-Type: text/xml");
 echo '<?xml version="1.0" encoding="UTF-8"?>';
 ?>

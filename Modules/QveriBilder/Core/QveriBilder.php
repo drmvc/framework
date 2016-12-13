@@ -8,29 +8,57 @@ class QveriBilder
 {
     private $_query;
 
+    /**
+     * Return query to stdout
+     *
+     * @return string
+     */
     public function get()
     {
         return $this->_query . ";\n";
     }
 
+    /**
+     * Create string
+     *
+     * @return $this
+     */
     public function create()
     {
         $this->_query = 'CREATE ';
         return $this;
     }
 
+    /**
+     * Database string
+     *
+     * @param $name
+     * @return $this
+     */
     public function database($name)
     {
         $this->_query .= ' DATABASE ' . $name;
         return $this;
     }
 
+    /**
+     * Table string
+     *
+     * @param $name
+     * @return $this
+     */
     public function table($name)
     {
         $this->_query .= ' TABLE ' . $name;
         return $this;
     }
 
+    /**
+     * Generate columns lists from array
+     *
+     * @param $array
+     * @return $this
+     */
     public function columns($array)
     {
         $columnDetails = null;
@@ -51,6 +79,12 @@ class QveriBilder
         return $this;
     }
 
+    /**
+     * Select string with WHAT definitions
+     *
+     * @param null $what
+     * @return $this
+     */
     public function select($what = null)
     {
         if ($what == null) {
@@ -67,18 +101,39 @@ class QveriBilder
         return $this;
     }
 
+    /**
+     * From string
+     *
+     * @param $name
+     * @return $this
+     */
     public function from($name)
     {
         $this->_query .= ' FROM ' . $name;
         return $this;
     }
 
+    /**
+     * Left loin string with parameters
+     *
+     * @param $name
+     * @param $first
+     * @param $second
+     * @param string $mode
+     * @return $this
+     */
     public function left_join($name, $first, $second, $mode = '=')
     {
         $this->_query .= ' LEFT JOIN ' . $name . ' ON (' . $first . ' ' . $mode . ' ' . $second . ')';
         return $this;
     }
 
+    /**
+     * Where string
+     *
+     * @param $where
+     * @return $this
+     */
     public function where($where)
     {
         $whereDetails = null;
@@ -95,6 +150,13 @@ class QveriBilder
         return $this;
     }
 
+    /**
+     * Update string
+     *
+     * @param $table
+     * @param $data
+     * @return $this
+     */
     public function update($table, $data)
     {
         $fieldDetails = null;

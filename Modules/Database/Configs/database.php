@@ -23,7 +23,7 @@ return array(
 		// Path to sqlite file
 		'file'     => APPPATH . '/test_sqlite_local.db',
 	),
-	'jabber_openfire' => array(
+	'mysql_database' => array(
 		// Database type
 		'type'     => 'pdo',
 		// Database default PDO driver [pgsql/mysql/oci8/odbc]

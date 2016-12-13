@@ -2,14 +2,14 @@
     "name": "drteam/drmvc-framework",
     "type": "project",
     "description": "Simple and flexible PHP MVC Framework for PHP5 and PHP7",
-    "homepage": "http://drmvc.com/",
+    "homepage": "https://drmvc.com/",
     "license": "MIT",
     "keywords": ["mvc", "php", "framework", "php5", "php7"],
     "authors": [
         {
-            "name": "Pavel Rykov",
-            "email": "p.rikov@drteam.rocks",
-            "homepage": "http://drteam.rocks/",
+            "name": "Paul Rock",
+            "email": "paul@drteam.rocks",
+            "homepage": "https://drteam.rocks/",
             "role": "Developer"
         }
     ],

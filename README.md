@@ -45,7 +45,7 @@ If you found the bug, please report about this on [GitHub Issues](https://github
 
 ## Developers
 
-* [Paul Rykov](https://github.com/PavelRykov)
+* [Paul Rock](https://github.com/EvilFreelancer)
 
 ## What inspired and what alternatives
 

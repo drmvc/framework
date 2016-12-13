@@ -6,8 +6,8 @@ use System\Core\View;
 use System\Core\Route;
 
 /**
- * Class Sitemap
- * @package Application\Controllers
+ * Class Sitemap for sitemap.xml generation
+ * @package System\Controllers
  */
 class Sitemap extends Controller
 {

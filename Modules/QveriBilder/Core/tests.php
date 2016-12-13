@@ -1,5 +1,9 @@
 <?php
+/**
+ * Simple tests file
+ */
 
+namespace Modules\QveriBilder\Core;
 require_once "QveriBilder.php";
 
 $qb = new QveriBilder();

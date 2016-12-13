@@ -1,4 +1,7 @@
 <?php namespace System\Core;
+/**
+ * Initialize all
+ */
 
 // Autoload classes
 require DOCROOT . 'autoload.php';
