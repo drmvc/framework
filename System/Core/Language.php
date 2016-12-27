@@ -7,21 +7,21 @@
 class Language
 {
     /**
-     * Variable holds array with language.
+     * Variable holds array with language
      *
      * @var array
      */
     private $array = array();
 
     /**
-     * Variable holds language filename.
+     * Variable holds language filename
      *
      * @var string
      */
     public $filename;
 
     /**
-     * Construct this class
+     * Language class constructor
      */
     public function __construct()
     {
@@ -29,10 +29,10 @@ class Language
     }
 
     /**
-     * Load language function.
+     * Load language function and store into array
      *
-     * @param string $name
-     * @param string $code
+     * @param string $name - name of localization file
+     * @param string $code - language code
      */
     public function load($name, $code = LANGUAGE_CODE)
     {
@@ -51,11 +51,11 @@ class Language
     }
 
     /**
-     * Read lines from file
+     * Read language array from file and return
      *
-     * @param $name
-     * @param mixed|string $code
-     * @return mixed
+     * @param string $name - name of localization file
+     * @param string $code - language code
+     * @return array
      */
     public function read($name, $code = LANGUAGE_CODE)
     {
@@ -68,13 +68,13 @@ class Language
             return include($file);
         } else {
             /** display error */
-            echo Error::display("Could not load language file '$code/$name.php'");
+            echo Error::display("Could not read language file '$code" . DIRECTORY_SEPARATOR . "$name.php'");
             die;
         }
     }
 
     /**
-     * Get element from language array by key.
+     * Get element from language array by key
      *
      * @param  string $value
      * @return string

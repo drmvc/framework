@@ -9,6 +9,8 @@ class Request
     public static $initial;
     public static $current;
     public $_routes;
+    public $_controller;
+    public $_action;
 
     /**
      * Detect current page url
@@ -222,8 +224,9 @@ class Request
         // If method into controller not exist, then error
         if (!method_exists($controller, $action)) {
             $error = Route::get('error')->defaults();
-            $controller = $appprefix . $error['controller'];
-            $action = 'action_' . $error['action'];
+            $this->_controller = $error['controller'];
+            $this->_action = $error['action'];
+            $this->render();
         }
 
         // Create requested class
@@ -250,4 +253,3 @@ class Request
         return isset($this->_params[$key]) ? $this->_params[$key] : $default;
     }
 }
-

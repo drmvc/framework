@@ -1,8 +1,7 @@
 {
   "name": "DrMVC",
-  "version": "1.0.0",
   "dependencies": {
-    "jquery": "~1.9.1",
-    "bootstrap": "~3.3.6"
+    "jquery": "^3.1.1",
+    "bootstrap": "^3.3.7"
   }
 }

@@ -12,6 +12,9 @@ use Application\Models\Example as Model_Example;
  */
 class Index extends Main
 {
+    /**
+     * @var Model_Example
+     */
     public $_example;
 
     /**
@@ -30,24 +33,28 @@ class Index extends Main
      */
     public function action_index()
     {
-        // Page info
-        $data['title'] = $this->language->get('index', 'index');
+        // Store all data into array variable
+        $this->view->data = array(
+            // Page title
+            'title' => $this->language->get('index'),
 
-        // Add styles and scripts
-        $data['styles_vendor'] = $this->styles_vendor;
-        $data['scripts_vendor'] = $this->scripts_vendor;
-        $data['styles'] = $this->styles;
-        $data['scripts'] = $this->scripts;
+            // Add styles and scripts
+            'styles_vendor' => $this->styles_vendor,
+            'scripts_vendor' => $this->scripts_vendor,
+            'styles' => $this->styles,
+            'scripts' => $this->scripts,
 
-        // Get the main language object
-        $data['lng'] = $this->language;
+            // Append the language
+            'lng' => $this->language,
 
-        // Generate the uuid
-        $data['uuid'] = UUID::v4();
+            // Generate the uuid
+            'uuid' => UUID::v4()
+        );
 
-        View::render('templates/header', $data);
-        View::render('index', $data);
-        View::render('templates/footer', $data);
+        // Render the templates
+        $this->view->render('templates/header');
+        $this->view->render('index');
+        $this->view->render('templates/footer');
     }
 
 }

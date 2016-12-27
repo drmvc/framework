@@ -5,10 +5,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <meta name="description" content="<?php echo $data['description']; ?>">
-    <meta name="author" content="<?php echo $data['author']; ?>">
-    <link rel="icon" href="/img/favicon.ico">
-
     <title><?php echo $data['title'] . ' &mdash; ' . SITETITLE; ?></title>
 
     <!-- Vendor CSS -->

@@ -6,10 +6,29 @@
 class View
 {
     /**
-     * Include layout file
+     * @var $data
      */
-    public static function render($path, $data = false, $error = false)
+    public $data;
+
+    /**
+     * View class constructor
+     */
+    public function __construct()
     {
+        return $this;
+    }
+
+    /**
+     * Include layout file
+     *
+     * @param string $path
+     * @param bool $data
+     * @return mixed|null
+     */
+    public function render($path, $data = false)
+    {
+        if ($data === false) $data = $this->data;
+
         // Application view
         $appfile = APPPATH . 'Views' . DIRECTORY_SEPARATOR . THEME . DIRECTORY_SEPARATOR . $path . '.php';
         // System view
