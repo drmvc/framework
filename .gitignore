@@ -5,6 +5,5 @@ nbproject
 .kate-swp
 ~
 .directory
-composer.lock
-components/
-vendor/
+/composer.lock
+/vendor/
