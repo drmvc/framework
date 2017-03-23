@@ -16,7 +16,7 @@ You can work simultaneously with multiple databases, for example with MySQL and 
 
 ### Classic style
 
-* Download the [DrMVC framework](https://github.com/DrTeamRocks/drmvc-framework/releases) package
+* Download the [DrMVC framework](https://github.com/drmvc/framework/releases) package
 
 * Extract the archive
 
