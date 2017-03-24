@@ -193,33 +193,15 @@ class Request
     public function render()
     {
         // User controllers
-        $appprefix = '\\Application\\Controllers\\';
+        $appprefix = '\\DrMVC\\App\\Controllers\\';
         $appcontroller = $appprefix . ucfirst(strtolower($this->_controller));
-        $appcontroller_file = APPPATH . DIRECTORY_SEPARATOR . 'Controllers' . DIRECTORY_SEPARATOR . ucfirst(strtolower($this->_controller)) . '.php';
-
-        // System controllers
-        $sysprefix = '\\System\\Controllers\\';
-        $syscontroller = $sysprefix . ucfirst(strtolower($this->_controller));
-        $syscontroller_file = SYSPATH . DIRECTORY_SEPARATOR . 'Controllers' . DIRECTORY_SEPARATOR . ucfirst(strtolower($this->_controller)) . '.php';
 
         // Controller action
         $action = 'action_' . $this->_action;
 
         // Application controller should replace system controller
-        switch (true) {
-            case file_exists($appcontroller_file):
-                $controller = $appcontroller;
-                $prefix = $appprefix;
-                break;
-            case file_exists($syscontroller_file):
-                $controller = $syscontroller;
-                $prefix = $sysprefix;
-                break;
-            default:
-                $controller = NULL;
-                $prefix = NULL;
-                break;
-        }
+        $controller = $appcontroller;
+        $prefix = $appprefix;
 
         // If method into controller not exist, then error
         if (!method_exists($controller, $action)) {
