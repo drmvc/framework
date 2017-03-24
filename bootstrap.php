@@ -8,27 +8,20 @@ define('SYSPATH', realpath($syspath) . DIRECTORY_SEPARATOR);
 // Clean up the configuration vars
 unset($apppath, $syspath);
 
-$directory = new \RecursiveDirectoryIterator(APPPATH);
-$iterator = new \RecursiveIteratorIterator($directory);
-foreach ($iterator as $info) {
-    $file = $info->getPathname();
-    $apppath = preg_replace('/\//','\\\/',APPPATH);
+// Application autoloader
+spl_autoload_register(function ($name) {
+    //echo "Want to load $name.<br/>\n";
 
-    if (
-        preg_match('/^.+\.php$/ui', $file) &&
-        preg_match('/^(' . $apppath . 'Controllers|' . $apppath . 'Models)/ui', $file)
-    ) {
-//        echo $file . "\n";
-        require_once $file;
-    }
-}
+    $pattern = array("/DrMVC\\\\App\\\\/ui", "/\\\\/ui");
+    $field = array("", "/");
+    $test_path = preg_replace($pattern, $field, $name);
 
-print_r(get_declared_classes());
+    require_once APPPATH . $test_path . '.php';
+    new $name();
+});
 
 // Default configurations
-$config = Config::load('config');
-foreach ($config as $key => $value) define($key, $value);
-unset ($config, $key, $value);
+Config::load('config');
 
 // Apply routes
 Config::load('routes');

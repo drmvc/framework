@@ -193,15 +193,12 @@ class Request
     public function render()
     {
         // User controllers
-        $appprefix = '\\DrMVC\\App\\Controllers\\';
-        $appcontroller = $appprefix . ucfirst(strtolower($this->_controller));
+        $prefix = '\\DrMVC\\App\\Controllers\\';
+        $class = ucfirst(strtolower($this->_controller));
+        $controller = $prefix . $class;
 
         // Controller action
         $action = 'action_' . $this->_action;
-
-        // Application controller should replace system controller
-        $controller = $appcontroller;
-        $prefix = $appprefix;
 
         // If method into controller not exist, then error
         if (!method_exists($controller, $action)) {
