@@ -23,9 +23,6 @@
     "php": "^5.5 || ^7.0"
   },
   "autoload": {
-    "files": [
-      "bootstrap.php"
-    ],
     "psr-4": {
       "DrMVC\\": "/"
     }
