@@ -20,7 +20,8 @@
     }
   ],
   "require": {
-    "php": "^5.5 || ^7.0"
+    "php": "^5.5 || ^7.0",
+    "drmvc/config": "dev-master"
   },
   "autoload": {
     "psr-4": {
