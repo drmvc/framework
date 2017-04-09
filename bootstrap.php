@@ -10,14 +10,20 @@ unset($apppath, $syspath);
 
 // Application autoloader
 spl_autoload_register(function ($name) {
-    //echo "Want to load $name.<br/>\n";
-
     $pattern = array("/DrMVC\\\\App\\\\/ui", "/\\\\/ui");
     $field = array("", "/");
     $test_path = preg_replace($pattern, $field, $name);
 
-    require_once APPPATH . $test_path . '.php';
-    new $name();
+    try {
+        // @ - to suppress warnings,
+        if (!@require_once(APPPATH . $test_path . '.php')) {
+            throw new \Exception (APPPATH . $test_path . '.php' . ' does not exist');
+        }
+        new $name();
+    } catch (\Exception $e) {
+        echo "Message : " . $e->getMessage();
+        echo "Code : " . $e->getCode();
+    }
 });
 
 // Default configurations
