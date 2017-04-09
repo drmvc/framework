@@ -1,5 +1,8 @@
 <?php namespace DrMVC\Core;
 
+// Simple check for application directory
+if (!isset($apppath)) $apppath = __DIR__;
+
 // Define the absolute paths for configured directories
 define('DOCROOT', realpath(dirname(__FILE__)) . DIRECTORY_SEPARATOR);
 define('APPPATH', realpath($apppath) . DIRECTORY_SEPARATOR);
