@@ -200,12 +200,22 @@ class Request
         // Controller action
         $action = 'action_' . $this->_action;
 
-        // If method into controller not exist, then error
-        if (!method_exists($controller, $action)) {
+        // No errors by default
+        $error_has_class = false;
+        $error_has_method = false;
+
+        if (!class_exists($controller, false)) {
+            error_log("Class $controller does not exists.");
+            $error_has_class = true;
+        } elseif (!method_exists($controller, $action)) {
+            error_log("Method $action in $controller class does not exists.");
+            $error_has_method = true;
+        }
+
+        if ($error_has_class || $error_has_method) {
             $error = Route::get('error')->defaults();
-            $this->_controller = $error['controller'];
-            $this->_action = $error['action'];
-            $this->render();
+            $controller = $prefix . $error['controller'];
+            $action = 'action_' . $error['action'];
         }
 
         // Create requested class
@@ -214,6 +224,7 @@ class Request
         $app->request = $this;
         // Run action and exec page generation
         $app->$action();
+
     }
 
     /**
