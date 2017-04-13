@@ -6,6 +6,13 @@
  */
 class Request
 {
+    /**
+     * Prefix path to application controllers
+     *
+     * @var string
+     */
+    public static $prefix = '\\DrMVC\\App\\Controllers\\';
+
     public static $initial;
     public static $current;
     public $_routes;
@@ -193,9 +200,8 @@ class Request
     public function render()
     {
         // User controllers
-        $prefix = '\\DrMVC\\App\\Controllers\\';
         $class = ucfirst(strtolower($this->_controller));
-        $controller = $prefix . $class;
+        $controller = $this::$prefix . $class;
 
         // Controller action
         $action = 'action_' . $this->_action;
@@ -204,7 +210,7 @@ class Request
         $error_has_class = false;
         $error_has_method = false;
 
-        if (!class_exists($controller, false)) {
+        if (!class_exists($controller)) {
             error_log("Class $controller does not exists.");
             $error_has_class = true;
         } elseif (!method_exists($controller, $action)) {
@@ -212,7 +218,7 @@ class Request
             $error_has_method = true;
         }
 
-        if ($error_has_class || $error_has_method) {
+        if (true === $error_has_class || true === $error_has_method) {
             $error = Route::get('error')->defaults();
             $controller = $prefix . $error['controller'];
             $action = 'action_' . $error['action'];

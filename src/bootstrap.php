@@ -16,16 +16,25 @@ spl_autoload_register(function ($name) {
     $pattern = array("/DrMVC\\\\App\\\\/ui", "/\\\\/ui");
     $field = array("", "/");
     $test_path = preg_replace($pattern, $field, $name);
+    $path = APPPATH . $test_path . '.php';
 
     try {
-        // @ - to suppress warnings,
-        if (!@require_once(APPPATH . $test_path . '.php')) {
-            throw new \Exception (APPPATH . $test_path . '.php' . ' does not exist');
+        // If controller is not exist
+        if (!file_exists($path)) {
+            throw new \Exception ($path . ' does not exist');
+        } else {
+            require_once $path;
+            new $name();
         }
-        new $name();
     } catch (\Exception $e) {
-        echo "Message : " . $e->getMessage();
-        echo "Code : " . $e->getCode();
+        // Get details about error controller
+        $error = Route::get('error')->defaults();
+        $controller = Request::$prefix . $error['controller'];
+        $action = 'action_' . $error['action'];
+        // Create the app
+        $app = new $controller();
+        $app->_error = $e->getMessage();
+        $app->$action();
     }
 });
 
