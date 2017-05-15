@@ -31,15 +31,10 @@ class View
 
         // Application view
         $appfile = APPPATH . 'Views' . DIRECTORY_SEPARATOR . THEME . DIRECTORY_SEPARATOR . $path . '.php';
-        // System view
-        $sysfile = SYSPATH . 'Views' . DIRECTORY_SEPARATOR . $path . '.php';
 
         switch (true) {
             case file_exists($appfile):
                 $file = include($appfile);
-                break;
-            case file_exists($sysfile):
-                $file = include($sysfile);
                 break;
             default:
                 $file = NULL;
