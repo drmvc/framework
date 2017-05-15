@@ -47,12 +47,14 @@ Here is a simple example of the directory structure:
 ### Example of `index.php` file
 
     <?php
-    // Relative path to your application root folder
-    $apppath = __DIR__ . '/../app';
     // Enable autoloader
     include __DIR__ . "/../vendor/autoload.php";
-    // Include framework bootstrap
-    include __DIR__ . "/../vendor/drmvc/framework/bootstrap.php";
+    // Set path of the application directory
+    define('APPPATH', __DIR__ . '/../app/');
+    // Default configurations
+    DrMVC\Core\Config::load('config');
+    // Apply routes
+    DrMVC\Core\Config::load('routes');
     // Start session
     DrMVC\Core\Session::init();
     // Render current page
@@ -60,7 +62,7 @@ Here is a simple example of the directory structure:
 
 ### Example of `config.php` file
 
-    <?php defined('SYSPATH') OR die('No direct script access.');
+    <?php defined('APPPATH') OR die('No direct script access.');
     define('SITETITLE', 'DrMVC');
     define('URL', 'http://drmvc');
     define('DIR', '/');
@@ -90,7 +92,7 @@ Here is a simple example of the directory structure:
 
 ## Where to get help
 
-If you need help with this project, you can read detailed instruction on [Documentation](http://drmvc.com/docs/v1) page or read more about [API](http://drmvc.com/api/v1). 
+If you need help with this project, you can read detailed instruction on [Documentation](https://drmvc.com/docs) page. 
 
 If you found the bug, please report about this on [GitHub Issues](https://github.com/drmvc/framework/issues) page.
 
@@ -104,3 +106,4 @@ Created under the influence and have a some similar functionality.
 
 * [Kohana](https://github.com/kohana/kohana) - Routing it is a very interesting part of this project
 * [SimpleMVC](https://github.com/simple-mvc-framework/framework) - it was a very exciting project, before the author renamed this to Nova
+* [Slim](https://github.com/slimphp/Slim) - Is a PHP micro framework, I really like how there are implemented the PSR-4 conception.
