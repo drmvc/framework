@@ -220,7 +220,7 @@ class Request
 
         if (true === $error_has_class || true === $error_has_method) {
             $error = Route::get('error')->defaults();
-            $controller = $prefix . $error['controller'];
+            $controller = $this::$prefix . $error['controller'];
             $action = 'action_' . $error['action'];
         }
 
