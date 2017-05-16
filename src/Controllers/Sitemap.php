@@ -1,4 +1,4 @@
-<?php namespace DrMVC\Controllers;
+<?php namespace DrMVC\Example\Controllers;
 
 use DrMVC\Core\Controller;
 use DrMVC\Core\Config;
@@ -24,13 +24,8 @@ class Sitemap extends Controller
      */
     public function action_index()
     {
-        $appnamespace = '\\Application\\Controllers\\';
-        $sysnamespace = '\\System\\Controllers\\';
-
-        $appfiles = glob(APPPATH . '/Controllers/*.php');
-        //$sysfiles = glob(DOCROOT . 'System/Controllers/*.php');
-        $sysfiles = array();
-        $files = array_merge($appfiles, $sysfiles);
+        $namespace = '\\DrMVC\\App\\Controllers\\';
+        $files = glob(APPPATH . '/Controllers/*.php');
 
         $classes = array();
         $i = 0;
@@ -40,18 +35,12 @@ class Sitemap extends Controller
             $segments = explode('\\', $segments[count($segments) - 1]);
             $filename = $segments[count($segments) - 1];
             $classname = explode('.', $filename);
-
-            $appclass = $appnamespace . $classname[0];
-            $sysclass = $sysnamespace . $classname[0];
+            $class = $namespace . $classname[0];
 
             switch (true) {
                 case (file_exists(APPPATH . '/Controllers/' . $classname[0] . '.php')):
-                    $class_name = $appnamespace . $classname[0];
-                    $class_check = $appclass;
-                    break;
-                case (file_exists(SYSPATH . '/Controllers/' . $classname[0] . '.php')):
-                    $class_name = $sysnamespace . $classname[0];
-                    $class_check = $sysclass;
+                    $class_name = $namespace . $classname[0];
+                    $class_check = $class;
                     break;
                 default:
                     $class_name = null;

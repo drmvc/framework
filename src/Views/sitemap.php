@@ -21,6 +21,10 @@ echo '<?xml version="1.0" encoding="UTF-8"?>';
         $name_short = mb_strtolower($data['sitemap'][$i]['name_short']);
         $path = $data['sitemap'][$i]['path'];
 
+        if ($name_short == 'error' || $name_short == 'sitemap') {
+            $i++;
+            continue;
+        }
         if ($name_short == 'index') $name_short = null; else $name_short = '/' . $name_short;
 
         $j = 0;
