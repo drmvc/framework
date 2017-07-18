@@ -1,9 +1,4 @@
-.git
-nbproject
-.kdev4
-.idea
-.kate-swp
-~
-.directory
-/composer.lock
+/.idea/
+/.directory
 /vendor/
+/composer.lock

@@ -24,6 +24,7 @@
     "drmvc/config": "^1.0"
   },
   "require-dev": {
+    "drmvc/cli": "^0.1",
     "phpunit/phpunit": "~5.7"
   },
   "autoload": {
@@ -31,9 +32,6 @@
       "DrMVC\\": "/src/"
     }
   },
-  "bin": [
-    "drmvc"
-  ],
   "suggest": {
     "drmvc/database": "Needed for working with the database",
     "drmvc/helpers": "Some useful classes for working with arrays and text"
