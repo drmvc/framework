@@ -24,7 +24,7 @@
     "drmvc/config": "^1.0"
   },
   "require-dev": {
-    "drmvc/cli": "^0.1",
+    "drmvc/cli": "^0.0.1",
     "phpunit/phpunit": "~5.7"
   },
   "autoload": {
