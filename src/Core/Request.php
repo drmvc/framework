@@ -7,8 +7,7 @@
 class Request
 {
     /**
-     * Prefix path to application controllers
-     *
+     * Default prefix path to application controllers
      * @var string
      */
     public static $prefix = '\\DrMVC\\App\\Controllers\\';
@@ -200,7 +199,7 @@ class Request
     public function render()
     {
         // User controllers
-        $class = ucfirst(strtolower($this->_controller));
+        $class = ucfirst($this->_controller);
         $controller = $this::$prefix . $class;
 
         // Controller action
