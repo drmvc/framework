@@ -20,10 +20,19 @@ You can work simultaneously with multiple databases, for example with MySQL and 
 * Simultaneous use of several localization files
 * Multiple templates support any template engines supported 
 * No need to describe each url-path into the routes, just use the url-templates, like "page(/\<id\>)"
- * You can push variables from the route directly into the controller
- * Only functions which name starts from `action_` can be executed dynamically
+  * You can push variables from the route directly into the controller
+  * Only functions which name starts from `action_` can be executed dynamically
 * Embedded variables cleaner method
 * Slug-url generator into URL class
+
+## RoadMap
+
+Some tasks what need to do:
+
+* [ ] Total HMVC with modular structure
+* [ ] Automatically deetect and enable model by controller's name
+* [ ] Automatically deetect and enable view by controller's name
+* [ ] Add into Router::class HMVC support (like module)
 
 ## How it works
 
