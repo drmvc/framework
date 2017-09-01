@@ -6,7 +6,20 @@
 class View
 {
     /**
-     * @var $data
+     * Folder with views
+     * @var string
+     */
+    protected $_viewsDir;
+
+    /**
+     * Extentions of files
+     * @var array
+     */
+    protected $_engines;
+
+    /**
+     * Data from controllers
+     * @var array $data
      */
     public $data;
 
@@ -16,6 +29,39 @@ class View
     public function __construct()
     {
         return $this;
+    }
+
+    /**
+     * Set folder with views
+     *
+     * @param   string $path
+     */
+    public function setViewsDir($path)
+    {
+        $this->_viewsDir = $path;
+    }
+
+    /**
+     * Return a path of views
+     *
+     * @return  string
+     */
+    public function getViewsDir()
+    {
+        return $this->_viewsDir;
+    }
+
+    /**
+     * Register new engies
+     *
+     * @param   array $engines
+     */
+    public function registerEngines(array $engines = array())
+    {
+        foreach ($engines as $key => $value) {
+            if ($value instanceof \Closure) $this->_engines[$key] = $value();
+            else $this->_engines[$key] = $value;
+        }
     }
 
     /**
