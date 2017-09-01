@@ -1,35 +1,57 @@
 <?php namespace DrMVC\Di;
 
-/**
- * Class Lazy
- * @package DrMVC\Di
- */
-class Lazy
+class Lazy implements LazyInterface
 {
     /**
-     * A callable to create an object instance.
+     * The callable to invoke.
      * @var callable
      */
     protected $callable;
 
     /**
-     * Lazy constructor.
-     *
-     * @param   callable $callable - A callable to create an object instance.
+     * Arguments for the callable.
+     * @var array
      */
-    public function __construct(callable $callable)
+    protected $params;
+
+    /**
+     * Constructor.
+     *
+     * @param callable $callable The callable to invoke.
+     * @param array $params Arguments for the callable.
+     */
+    public function __construct($callable, array $params = [])
     {
         $this->callable = $callable;
+        $this->params = $params;
     }
 
     /**
      * Invokes the closure to create the instance.
      *
-     * @return  object - The object created by the closure.
+     * @return object The object created by the closure.
      */
     public function __invoke()
     {
-        $callable = $this->callable;
-        return $callable();
+        // convert Lazy objects in the callable
+        if (is_array($this->callable)) {
+            foreach ($this->callable as $key => $val) {
+                if ($val instanceof LazyInterface) {
+                    $this->callable[$key] = $val();
+                }
+            }
+        } elseif ($this->callable instanceof LazyInterface) {
+            $this->callable = $this->callable->__invoke();
+        }
+
+        // convert Lazy objects in the params
+        foreach ($this->params as $key => $val) {
+            if ($val instanceof LazyInterface) {
+                $this->params[$key] = $val();
+            }
+        }
+
+        // make the call
+        return call_user_func_array($this->callable, $this->params);
     }
 }
