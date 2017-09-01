@@ -19,11 +19,9 @@ class DiTest extends TestCase
     {
         $result = $this->_di->set('object', $this->_test[1]);
         $this->assertTrue($result);
-        $this->assertObjectHasAttribute('object', $this->_di);
 
         $result = $this->_di->set('array', $this->_test[2]);
         $this->assertTrue($result);
-        $this->assertObjectHasAttribute('array', $this->_di);
     }
 
     public function testGet()

@@ -3,6 +3,12 @@
 class Di implements Interfaces\DiInterface
 {
     /**
+     * Array of dependencies
+     * @var array
+     */
+    protected $dependencies = array();
+
+    /**
      * Basic variables setter
      *
      * @param   string $name
@@ -11,9 +17,8 @@ class Di implements Interfaces\DiInterface
      */
     public function set($name, $definition)
     {
-        $this->$name = $definition;
-        if (isset($this->$name)) return true;
-        return false;
+        $this->dependencies[$name] = $definition;
+        return $this->has($name);
     }
 
     /**
@@ -24,8 +29,7 @@ class Di implements Interfaces\DiInterface
      */
     public function get($name)
     {
-        if (isset($this->$name)) return $this->$name;
-        return false;
+        return isset($this->dependencies[$name]) ? $this->dependencies[$name] : false;
     }
 
     /**
@@ -36,17 +40,16 @@ class Di implements Interfaces\DiInterface
      */
     public function has($name)
     {
-        if (isset($this->$name)) return true;
-        return false;
+        return isset($this->dependencies[$name]) ? true : false;
     }
 
     /**
-     * Remove container from DI by name
+     * Remove container from dependencies by name
      *
      * @param   string $name
      */
     public function remove($name)
     {
-        if (isset($this->$name)) unset($this->$name);
+        if (isset($this->dependencies[$name])) unset($this->dependencies[$name]);
     }
 }
