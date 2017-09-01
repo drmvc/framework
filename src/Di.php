@@ -17,7 +17,10 @@ class Di implements Interfaces\DiInterface
      */
     public function set($name, $definition)
     {
+        if ($definition instanceof \Closure) $definition = new Di\Lazy($definition);
+
         $this->dependencies[$name] = $definition;
+
         return $this->has($name);
     }
 
