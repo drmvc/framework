@@ -6,6 +6,7 @@ namespace DrMVC\Framework;
 //use Psr\Container\NotFoundExceptionInterface;
 
 use DrMVC\Router\RouterInterface;
+use Psr\Container\ContainerInterface;
 use Zend\Diactoros\ServerRequestFactory;
 use Zend\Diactoros\ServerRequest;
 use Zend\Diactoros\Response;
@@ -86,21 +87,29 @@ class App implements AppInterface
     }
 
     /**
-     * Get containers object
+     * Get custom container by name
      *
-     * @param   string|null $name
+     * @param   string $name
      * @return  mixed
      */
-    public function containers(string $name = null)
+    public function container(string $name)
     {
-        return (null !== $name)
-            ? $this->_containers->get($name)
-            : $this->_containers;
+        return $this->_containers->get($name);
+    }
+
+    /**
+     * Get all available containers
+     *
+     * @return  ContainersInterface
+     */
+    public function containers(): ContainersInterface
+    {
+        return $this->_containers;
     }
 
     public function __call(string $method, array $args): RouterInterface
     {
-        $router = $this->containers('router');
+        $router = $this->container('router');
         if (\in_array($method, Router::METHODS, false)) {
             $router->set([$method], $args);
         }
@@ -109,21 +118,21 @@ class App implements AppInterface
 
     public function any(string $pattern, $callable): RouterInterface
     {
-        $router = $this->containers('router');
+        $router = $this->container('router');
         $router->any($pattern, $callable);
         return $router;
     }
 
     public function error($callable): RouterInterface
     {
-        $router = $this->containers('router');
+        $router = $this->container('router');
         $router->error($callable);
         return $router;
     }
 
     public function map(array $methods, string $pattern, $callable): RouterInterface
     {
-        $router = $this->containers('router');
+        $router = $this->container('router');
         $router->map($methods, $pattern, $callable);
         return $router;
     }
