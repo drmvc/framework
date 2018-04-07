@@ -22,6 +22,7 @@
   "require": {
     "php": "^7.0",
     "psr/container": "^1.0",
+    "zendframework/zend-diactoros": "^1.7",
     "drmvc/router": "^3.0.0",
     "drmvc/config": "^3.0.0",
     "drmvc/helpers": "^3.0.0",
