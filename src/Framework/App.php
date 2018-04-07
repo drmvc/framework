@@ -2,17 +2,14 @@
 
 namespace DrMVC\Framework;
 
-//use Psr\Container\ContainerInterface;
-//use Psr\Container\NotFoundExceptionInterface;
-
 use DrMVC\Router\RouterInterface;
-use Psr\Container\ContainerInterface;
 use Zend\Diactoros\ServerRequestFactory;
 use Zend\Diactoros\ServerRequest;
 use Zend\Diactoros\Response;
 
 use DrMVC\Config\ConfigInterface;
 use DrMVC\Router;
+use DrMVC\Controllers\Error;
 
 /**
  * Class App
@@ -40,9 +37,16 @@ class App implements AppInterface
      */
     public function __construct(ConfigInterface $config)
     {
+        // Initiate PSR-11 containers
+        $this->initContainers();
+
+        // Save configuration
+        $this->initConfig($config);
+
+        // Initiate router
         $this
-            ->initContainers()
-            ->initConfig($config)
+            ->initRequest()
+            ->initResponse()
             ->initRouter();
     }
 
@@ -72,15 +76,48 @@ class App implements AppInterface
     }
 
     /**
+     * Initiate PSR-7 request object
+     *
+     * @return  App
+     */
+    private function initRequest(): App
+    {
+        try {
+            $request = ServerRequestFactory::fromGlobals();
+            $this->containers()->set('request', $request);
+        } catch (\InvalidArgumentException $e) {
+            new Exception($e);
+        }
+        return $this;
+    }
+
+    /**
+     * Initiate PSR-7 response object
+     *
+     * @return  App
+     */
+    private function initResponse(): App
+    {
+        try {
+            $response = new Response();
+            $this->containers()->set('response', $response);
+        } catch (\InvalidArgumentException $e) {
+            new Exception($e);
+        }
+        return $this;
+    }
+
+    /**
      * Put route into the container of classes
      *
      * @return  App
      */
     private function initRouter(): App
     {
-        $req = ServerRequestFactory::fromGlobals();
-        $res = new Response();
-        $router = new Router($req, $res);
+        $request = $this->container('request');
+        $response = $this->container('response');
+        $router = new Router($request, $response);
+        $router->setError(Error::class);
 
         $this->containers()->set('router', $router);
         return $this;
@@ -107,6 +144,13 @@ class App implements AppInterface
         return $this->_containers;
     }
 
+    /**
+     * Magic method for work with calls
+     *
+     * @param   string $method
+     * @param   array $args
+     * @return  RouterInterface
+     */
     public function __call(string $method, array $args): RouterInterface
     {
         $router = $this->container('router');
@@ -116,6 +160,13 @@ class App implements AppInterface
         return $router;
     }
 
+    /**
+     * If any route is provided
+     *
+     * @param   string $pattern
+     * @param   callable|string $callable
+     * @return  RouterInterface
+     */
     public function any(string $pattern, $callable): RouterInterface
     {
         $router = $this->container('router');
@@ -123,6 +174,12 @@ class App implements AppInterface
         return $router;
     }
 
+    /**
+     * Set the error callback of class
+     *
+     * @param   callable|string $callable
+     * @return  RouterInterface
+     */
     public function error($callable): RouterInterface
     {
         $router = $this->container('router');
@@ -130,6 +187,14 @@ class App implements AppInterface
         return $router;
     }
 
+    /**
+     * Few methods provided
+     *
+     * @param   array $methods
+     * @param   string $pattern
+     * @param   callable|string $callable
+     * @return  RouterInterface
+     */
     public function map(array $methods, string $pattern, $callable): RouterInterface
     {
         $router = $this->container('router');
@@ -137,4 +202,9 @@ class App implements AppInterface
         return $router;
     }
 
+    public function run(): bool
+    {
+        $router = $this->container('router');
+        return $router->getRoute();
+    }
 }

@@ -9,6 +9,7 @@ $app = new \DrMVC\App($config);
 
 $app
     ->get('', function() {
+        print_r($this);
         echo 'get';
     })
     ->post('/zzz', function() {
