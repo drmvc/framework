@@ -41,13 +41,14 @@ class Containers implements ContainersInterface
      */
     public function set(string $container, $object, ConfigInterface $config = null): ContainersInterface
     {
-        if (\is_object($object)) {
-            $this->setContainer($container, $object);
-        } else {
-            $class = '\\DrMVC\\' . $object;
-            $this->setContainer($container, new $class($config));
+        if (!$this->has($container)) {
+            if (\is_object($object)) {
+                $this->setContainer($container, $object);
+            } else {
+                $class = '\\DrMVC\\' . $object;
+                $this->setContainer($container, new $class($config));
+            }
         }
-
         return $this;
     }
 

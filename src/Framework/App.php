@@ -2,13 +2,13 @@
 
 namespace DrMVC\Framework;
 
-use DrMVC\Router\RouterInterface;
+use DrMVC\Router\MethodsInterface;
 use Zend\Diactoros\ServerRequestFactory;
 use Zend\Diactoros\ServerRequest;
 use Zend\Diactoros\Response;
 
 use DrMVC\Config\ConfigInterface;
-use DrMVC\Router;
+use DrMVC\Router\Router;
 use DrMVC\Controllers\Error;
 
 /**
@@ -117,7 +117,7 @@ class App implements AppInterface
         $request = $this->container('request');
         $response = $this->container('response');
         $router = new Router($request, $response);
-        $router->setError(Error::class);
+        //$router->setError(Error::class);
 
         $this->containers()->set('router', $router);
         return $this;
@@ -149,15 +149,14 @@ class App implements AppInterface
      *
      * @param   string $method
      * @param   array $args
-     * @return  RouterInterface
+     * @return  MethodsInterface
      */
-    public function __call(string $method, array $args): RouterInterface
+    public function __call(string $method, array $args): MethodsInterface
     {
-        $router = $this->container('router');
         if (\in_array($method, Router::METHODS, false)) {
-            $router->set([$method], $args);
+            $this->container('router')->set([$method], $args);
         }
-        return $router;
+        return $this;
     }
 
     /**
@@ -165,26 +164,24 @@ class App implements AppInterface
      *
      * @param   string $pattern
      * @param   callable|string $callable
-     * @return  RouterInterface
+     * @return  MethodsInterface
      */
-    public function any(string $pattern, $callable): RouterInterface
+    public function any(string $pattern, $callable): MethodsInterface
     {
-        $router = $this->container('router');
-        $router->any($pattern, $callable);
-        return $router;
+        $this->container('router')->any($pattern, $callable);
+        return $this;
     }
 
     /**
      * Set the error callback of class
      *
      * @param   callable|string $callable
-     * @return  RouterInterface
+     * @return  MethodsInterface
      */
-    public function error($callable): RouterInterface
+    public function error($callable): MethodsInterface
     {
-        $router = $this->container('router');
-        $router->error($callable);
-        return $router;
+        $this->container('router')->error($callable);
+        return $this;
     }
 
     /**
@@ -193,18 +190,23 @@ class App implements AppInterface
      * @param   array $methods
      * @param   string $pattern
      * @param   callable|string $callable
-     * @return  RouterInterface
+     * @return  MethodsInterface
      */
-    public function map(array $methods, string $pattern, $callable): RouterInterface
+    public function map(array $methods, string $pattern, $callable): MethodsInterface
     {
-        $router = $this->container('router');
-        $router->map($methods, $pattern, $callable);
-        return $router;
+        $this->container('router')->map($methods, $pattern, $callable);
+        return $this;
     }
 
-    public function run(): bool
+    /**
+     * Simple runner should parse query and make work on user's class
+     *
+     * @return  mixed
+     */
+    public function run()
     {
         $router = $this->container('router');
         return $router->getRoute();
     }
+
 }
