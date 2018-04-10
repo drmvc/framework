@@ -26,6 +26,8 @@ use DrMVC\Controllers\Error;
  */
 class App implements AppInterface
 {
+    const DEFAULT_ACTION = 'index';
+
     /**
      * @var ContainersInterface
      */
@@ -206,7 +208,25 @@ class App implements AppInterface
     public function run()
     {
         $router = $this->container('router');
-        return $router->getRoute();
+        $route = $router->getRoute();
+        $request = $this->container('request');
+        $response = $this->container('response');
+        $variables = $route->getVariables();
+        $callback = $route->getCallback();
+
+        print_r($route);die();
+
+        if (\is_string($callback)) {
+            $class = new $callback();
+            $action = $variables['action'] ?? self::DEFAULT_ACTION;
+            $action = 'action_' . $action;
+            $class->$action($request, $response, $variables);
+            $result = $response->getBody();
+        } else {
+            $result = $callback($request, $response, $variables);
+        }
+
+        return $result;
     }
 
 }
