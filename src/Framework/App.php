@@ -208,13 +208,12 @@ class App implements AppInterface
     public function run()
     {
         $router = $this->container('router');
-        $route = $router->getRoute();
         $request = $this->container('request');
         $response = $this->container('response');
+
+        $route = $router->getRoute();
         $variables = $route->getVariables();
         $callback = $route->getCallback();
-
-        print_r($route);die();
 
         if (\is_string($callback)) {
             $class = new $callback();
@@ -223,7 +222,8 @@ class App implements AppInterface
             $class->$action($request, $response, $variables);
             $result = $response->getBody();
         } else {
-            $result = $callback($request, $response, $variables);
+            $callback($request, $response, $variables);
+            $result = $response->getBody();
         }
 
         return $result;
