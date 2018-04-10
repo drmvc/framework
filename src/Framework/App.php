@@ -201,32 +201,96 @@ class App implements AppInterface
     }
 
     /**
+     * Detect action by string name, variable or use default
+     *
+     * @param   string $className - eg. MyApp\Index:test
+     * @param   array $variables
+     * @return  string
+     */
+    private function detectAction(string $className, array $variables = []): string
+    {
+        // If class contain method name
+        if (strpos($className, ':') !== false) {
+            $classArray = explode(':', $className);
+            $classAction = end($classArray);
+        } else {
+            $classAction = null;
+        }
+
+        /*
+         * Detect what action should be initiated
+         *
+         * Priorities:
+         *  1. If action name in variables
+         *  2. Action name in line with class name eg. MyApp\Index:test - test here is `action_test` alias
+         *  3. Default action is index - action_index in result
+         */
+        $action = self::DEFAULT_ACTION;
+        if (null !== $classAction) {
+            $action = $classAction;
+        }
+        if (isset($variables['action'][0])) {
+            $action = $variables['action'][0];
+        }
+
+        return 'action_' . $action;
+    }
+
+    /**
      * Simple runner should parse query and make work on user's class
      *
      * @return  mixed
      */
     public function run()
     {
+        // Extract some important objects
         $router = $this->container('router');
         $request = $this->container('request');
         $response = $this->container('response');
 
+        // Get current matched route with and extract variables with callback
         $route = $router->getRoute();
         $variables = $route->getVariables();
         $callback = $route->getCallback();
 
+        // If extracted call back is string
         if (\is_string($callback)) {
+
+            // Then class provided
             $class = new $callback();
-            $action = $variables['action'] ?? self::DEFAULT_ACTION;
-            $action = 'action_' . $action;
+            $action = $this->detectAction($callback, $variables);
+
+            // TODO: crapcode, rewrite to exceptions
+            // If method not found in required class
+            if (!\method_exists($class, $action)) {
+                // Replace route object to error route
+                $route = $router->getError();
+                $variables = $route->getVariables();
+                $callback = $route->getCallback();
+
+                // If extracted call back is string
+                if (\is_string($callback)) {
+                    // Then class provided
+                    $class = new $callback();
+                    $action = $this->detectAction($callback);
+
+                    // Call required action, with request/response
+                    $class->$action($request, $response, $variables);
+                } else {
+                    // Else simple callback
+                    $callback($request, $response, $variables);
+                }
+                return $response->getBody();
+            }
+
+            // Call required action, with request/response
             $class->$action($request, $response, $variables);
-            $result = $response->getBody();
         } else {
+            // Else simple callback
             $callback($request, $response, $variables);
-            $result = $response->getBody();
         }
 
-        return $result;
+        return $response->getBody();
     }
 
 }
