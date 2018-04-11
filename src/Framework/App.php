@@ -2,14 +2,18 @@
 
 namespace DrMVC\Framework;
 
-use DrMVC\Router\MethodsInterface;
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\StreamInterface;
+
 use Zend\Diactoros\ServerRequestFactory;
 use Zend\Diactoros\ServerRequest;
 use Zend\Diactoros\Response;
 
-use DrMVC\Config\ConfigInterface;
 use DrMVC\Router\Router;
-use DrMVC\Controllers\Error;
+use DrMVC\Router\RouteInterface;
+use DrMVC\Router\MethodsInterface;
+use DrMVC\Config\ConfigInterface;
 
 /**
  * Class App
@@ -237,19 +241,42 @@ class App implements AppInterface
     }
 
     /**
-     * Simple runner should parse query and make work on user's class
+     * Check if method exist in required class
      *
-     * @return  mixed
+     * @param   object $class
+     * @param   string $action
+     * @return  bool
      */
-    public function run()
+    private function methodCheck($class, string $action): bool
     {
-        // Extract some important objects
-        $router = $this->container('router');
-        $request = $this->container('request');
-        $response = $this->container('response');
+        try {
+            // If method not found in required class
+            if (!\method_exists($class, $action)) {
+                $className = \get_class($class);
+                throw new Exception("Method \"$action\" is not found in \"$className\"");
+            }
+        } catch (Exception $e) {
+            return false;
+        }
+        return true;
+    }
 
-        // Get current matched route with and extract variables with callback
-        $route = $router->getRoute();
+    /**
+     * Here we need to solve how to display the page, and if method is
+     * not available need to show error
+     *
+     * @param   RouteInterface $route
+     * @param   RequestInterface $request
+     * @param   ResponseInterface $response
+     * @param   bool $error
+     * @return  StreamInterface
+     */
+    private function runClass(
+        RouteInterface $route,
+        RequestInterface $request,
+        ResponseInterface $response,
+        bool $error = false
+    ) {
         $variables = $route->getVariables();
         $callback = $route->getCallback();
 
@@ -260,27 +287,11 @@ class App implements AppInterface
             $class = new $callback();
             $action = $this->detectAction($callback, $variables);
 
-            // TODO: crapcode, rewrite to exceptions
-            // If method not found in required class
-            if (!\method_exists($class, $action)) {
-                // Replace route object to error route
-                $route = $router->getError();
-                $variables = $route->getVariables();
-                $callback = $route->getCallback();
-
-                // If extracted call back is string
-                if (\is_string($callback)) {
-                    // Then class provided
-                    $class = new $callback();
-                    $action = $this->detectAction($callback);
-
-                    // Call required action, with request/response
-                    $class->$action($request, $response, $variables);
-                } else {
-                    // Else simple callback
-                    $callback($request, $response, $variables);
-                }
-                return $response->getBody();
+            // If method is not found
+            if (true !== $error && false === $this->methodCheck($class, $action)) {
+                $router = $this->container('router');
+                $routeError = $router->getError();
+                return $this->runClass($routeError, $request, $response, true);
             }
 
             // Call required action, with request/response
@@ -289,8 +300,25 @@ class App implements AppInterface
             // Else simple callback
             $callback($request, $response, $variables);
         }
-
         return $response->getBody();
+    }
+
+    /**
+     * Simple runner should parse query and make work on user's class
+     *
+     * @return  StreamInterface
+     */
+    public function run(): StreamInterface
+    {
+        // Extract some important objects
+        $router = $this->container('router');
+        $request = $this->container('request');
+        $response = $this->container('response');
+
+        // Get current matched route with and extract variables with callback
+        $route = $router->getRoute();
+
+        return $this->runClass($route, $request, $response);
     }
 
 }
