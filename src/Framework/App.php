@@ -205,13 +205,12 @@ class App implements AppInterface
     }
 
     /**
-     * Detect action by string name, variable or use default
+     * Here we need parse line of class and extract action name after last ":" symbol
      *
-     * @param   string $className - eg. MyApp\Index:test
-     * @param   array $variables
+     * @param   string $className
      * @return  string
      */
-    private function detectAction(string $className, array $variables = []): string
+    private function extractActionFromClass(string $className): string
     {
         // If class contain method name
         if (strpos($className, ':') !== false) {
@@ -220,7 +219,18 @@ class App implements AppInterface
         } else {
             $classAction = null;
         }
+        return $classAction;
+    }
 
+    /**
+     * Detect action by string name, variable or use default
+     *
+     * @param   string $className - eg. MyApp\Index:test
+     * @param   array $variables
+     * @return  string
+     */
+    private function detectAction(string $className, array $variables = []): string
+    {
         /*
          * Detect what action should be initiated
          *
@@ -230,9 +240,12 @@ class App implements AppInterface
          *  3. Default action is index - action_index in result
          */
         $action = self::DEFAULT_ACTION;
+
+        $classAction = $this->extractActionFromClass($className);
         if (null !== $classAction) {
             $action = $classAction;
         }
+
         if (isset($variables['action'][0])) {
             $action = $variables['action'][0];
         }
