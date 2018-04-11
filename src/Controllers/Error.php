@@ -7,8 +7,9 @@ use \Psr\Http\Message\ResponseInterface as Response;
 
 class Error
 {
-    public function action_index(Request $request, Response $response)
+    public function action_index(Request $request, Response $response, array $args)
     {
-        echo 'error';
+        $error = 'error triggered';
+        $response->getBody()->write($error);
     }
 }
