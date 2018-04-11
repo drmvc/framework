@@ -208,9 +208,9 @@ class App implements AppInterface
      * Here we need parse line of class and extract action name after last ":" symbol
      *
      * @param   string $className
-     * @return  string
+     * @return  string|null
      */
-    private function extractActionFromClass(string $className): string
+    private function extractActionFromClass(string $className)
     {
         // If class contain method name
         if (strpos($className, ':') !== false) {
