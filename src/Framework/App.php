@@ -284,7 +284,7 @@ class App implements AppInterface
      * @param   bool $error
      * @return  StreamInterface
      */
-    private function runClass(
+    private function exec(
         RouteInterface $route,
         RequestInterface $request,
         ResponseInterface $response,
@@ -304,7 +304,7 @@ class App implements AppInterface
             if (true !== $error && false === $this->methodCheck($class, $action)) {
                 $router = $this->container('router');
                 $routeError = $router->getError();
-                return $this->runClass($routeError, $request, $response, true);
+                return $this->exec($routeError, $request, $response, true);
             }
 
             // Call required action, with request/response
@@ -331,7 +331,7 @@ class App implements AppInterface
         // Get current matched route with and extract variables with callback
         $route = $router->getRoute();
 
-        return $this->runClass($route, $request, $response);
+        return $this->exec($route, $request, $response);
     }
 
 }

@@ -9,7 +9,10 @@ class Error
 {
     public function action_index(Request $request, Response $response, array $args)
     {
-        $error = 'error triggered';
+        $error = "error triggered\n";
+        $error .= print_r($args, true) . "\n\n";
+        $error .= print_r($request, true) . "\n";
+
         $response->getBody()->write($error);
     }
 }
