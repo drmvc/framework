@@ -9,7 +9,7 @@ interface ContainersInterface extends ContainerInterface
 {
     /**
      * @param   string $container
-     * @param   string $object
+     * @param   string|object $object
      * @param   ConfigInterface $config
      * @return  ContainersInterface
      */
