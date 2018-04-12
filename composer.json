@@ -8,7 +8,6 @@
     "mvc",
     "php",
     "framework",
-    "php5",
     "php7"
   ],
   "authors": [
@@ -23,15 +22,12 @@
     "php": "^7.0",
     "psr/container": "^1.0",
     "zendframework/zend-diactoros": "^1.7",
-    "drmvc/router": "@dev",
     "drmvc/config": "^3.0.0",
-    "drmvc/helpers": "^3.0.0",
-    "drmvc/password": "@dev",
-    "drmvc/session": "@dev",
+    "drmvc/router": "^3.0.0",
     "drmvc/database": "@dev"
   },
   "require-dev": {
-    "phpunit/phpunit": "~6.0"
+    "phpunit/phpunit": "^6.0"
   },
   "autoload": {
     "psr-4": {
