@@ -10,6 +10,7 @@ use Zend\Diactoros\ServerRequestFactory;
 use Zend\Diactoros\ServerRequest;
 use Zend\Diactoros\Response;
 
+use DrMVC\Controllers\Error;
 use DrMVC\Router\Router;
 use DrMVC\Router\RouteInterface;
 use DrMVC\Router\MethodsInterface;
@@ -123,7 +124,7 @@ class App implements AppInterface
         $request = $this->container('request');
         $response = $this->container('response');
         $router = new Router($request, $response);
-        //$router->setError(Error::class);
+        $router->error(Error::class);
 
         $this->containers()->set('router', $router);
         return $this;
