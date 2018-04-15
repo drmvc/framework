@@ -228,7 +228,7 @@ class App implements AppInterface
     }
 
     /**
-     * Parce line of class, end return only class name (without possible action)
+     * Parse line of class, end return only class name (without possible action)
      *
      * @param   string $className
      * @return  string
