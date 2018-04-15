@@ -1,5 +1,3 @@
-# DrMVC Framework
-
 [![Latest Stable Version](https://poser.pugx.org/drmvc/framework/v/stable)](https://packagist.org/packages/drmvc/framework)
 [![Build Status](https://travis-ci.org/drmvc/framework.svg?branch=master)](https://travis-ci.org/drmvc/framework)
 [![Total Downloads](https://poser.pugx.org/drmvc/framework/downloads)](https://packagist.org/packages/drmvc/framework)
@@ -7,6 +5,10 @@
 [![PHP 7 ready](https://php7ready.timesplinter.ch/drmvc/framework/master/badge.svg)](https://travis-ci.org/drmvc/framework)
 [![Code Climate](https://codeclimate.com/github/drmvc/framework/badges/gpa.svg)](https://codeclimate.com/github/drmvc/framework)
 [![Scrutinizer CQ](https://scrutinizer-ci.com/g/drmvc/framework/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/drmvc/framework/)
+
+# DrMVC Framework
+
+A framework that combines some modules. necessary to create a full-fledged web application.
 
     composer require drmvc/framework
 
