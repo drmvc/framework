@@ -228,6 +228,22 @@ class App implements AppInterface
     }
 
     /**
+     * Parce line of class, end return only class name (without possible action)
+     *
+     * @param   string $className
+     * @return  string
+     */
+    private function extractClass(string $className): string
+    {
+        // If class name contain ":" symbol
+        if (strpos($className, ':') !== false) {
+            $classArray = explode(':', $className);
+            $className = $classArray[0];
+        }
+        return $className;
+    }
+
+    /**
      * Detect action by string name, variable or use default
      *
      * @param   string $className - eg. MyApp\Index:test
@@ -303,8 +319,10 @@ class App implements AppInterface
         // If extracted call back is string
         if (\is_string($callback)) {
 
+            $className = $this->extractClass($callback);
+
             // Then class provided
-            $class = new $callback();
+            $class = new $className();
             $action = $this->detectAction($callback, $variables);
 
             // If method is not found
