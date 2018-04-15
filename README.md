@@ -16,7 +16,7 @@ A framework that combines some modules. necessary to create a full-fledged web a
 
 More examples you can find [here](extra).
 
-Example of `index.php`:
+Example of `index.php` inside `public_html` folder:
 
 ```php
 <?php
@@ -40,7 +40,7 @@ $app
 echo $app->run();
 ```
 
-Example of controller:
+Example of `Index` controller inside `app/Controllers` folder:
 
 ```php
 <?php
