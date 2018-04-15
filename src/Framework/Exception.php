@@ -5,6 +5,7 @@ namespace DrMVC\Framework;
 /**
  * Class Exception
  * @package DrMVC\Framework
+ * @since   3.0
  */
 class Exception extends \Exception
 {

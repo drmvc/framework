@@ -4,6 +4,11 @@ namespace DrMVC\Framework;
 
 use DrMVC\Config\ConfigInterface;
 
+/**
+ * Class for work with PSR containers
+ * @package DrMVC\Framework
+ * @since   3.0
+ */
 class Containers implements ContainersInterface
 {
     /**

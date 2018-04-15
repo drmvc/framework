@@ -7,7 +7,6 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamInterface;
 
 use Zend\Diactoros\ServerRequestFactory;
-use Zend\Diactoros\ServerRequest;
 use Zend\Diactoros\Response;
 
 use DrMVC\Controllers\Error;
@@ -17,8 +16,10 @@ use DrMVC\Router\MethodsInterface;
 use DrMVC\Config\ConfigInterface;
 
 /**
- * Class App
+ * Main class of DrMVC application
  * @package DrMVC\Framework
+ * @since   3.0
+ *
  * @method App options(string $pattern, callable $callable): App
  * @method App get(string $pattern, callable $callable): App
  * @method App head(string $pattern, callable $callable): App
@@ -27,10 +28,13 @@ use DrMVC\Config\ConfigInterface;
  * @method App delete(string $pattern, callable $callable): App
  * @method App trace(string $pattern, callable $callable): App
  * @method App connect(string $pattern, callable $callable): App
- * @since 3.0
  */
 class App implements AppInterface
 {
+
+    /**
+     * Default action if method is not set
+     */
     const DEFAULT_ACTION = 'index';
 
     /**
@@ -236,19 +240,21 @@ class App implements AppInterface
          * Detect what action should be initiated
          *
          * Priorities:
-         *  1. If action name in variables
-         *  2. Action name in line with class name eg. MyApp\Index:test - test here is `action_test` alias
-         *  3. Default action is index - action_index in result
          */
+
+        // 3. Default action is index - action_index in result
         $action = self::DEFAULT_ACTION;
 
+        // 2. If action name in variables
+        if (isset($variables['action'][0])) {
+            $action = $variables['action'][0];
+        }
+
+        // 1. Action name in line with class name eg. MyApp\Index:test - test
+        //    here is `action_test` alias
         $classAction = $this->extractActionFromClass($className);
         if (null !== $classAction) {
             $action = $classAction;
-        }
-
-        if (isset($variables['action'][0])) {
-            $action = $variables['action'][0];
         }
 
         return 'action_' . $action;
