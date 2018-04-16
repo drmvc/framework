@@ -1,13 +1,22 @@
 <?php
 
-namespace Framework;
+namespace DrMVC\Framework\Tests;
 
 use PHPUnit\Framework\TestCase;
 use DrMVC\Framework\Containers;
 use DrMVC\Router;
+use DrMVC\Config;
 
 class ContainersTest extends TestCase
 {
+    private $config;
+
+    public function __construct(string $name = null, array $data = [], string $dataName = '')
+    {
+        parent::__construct($name, $data, $dataName);
+        $this->config = new Config();
+    }
+
     public function test__construct()
     {
         try {
@@ -38,16 +47,23 @@ class ContainersTest extends TestCase
         $req = new \Zend\Diactoros\ServerRequest();
         $res = new \Zend\Diactoros\Response();
         $router = new Router($req, $res);
-
         $obj = new Containers();
-        $obj->set('router', $router);
-        $this->assertInstanceOf(Containers::class, $obj);
 
+        // If object pushed in containers
+        $obj->set('router', $router, $this->config);
+        $this->assertInstanceOf(Containers::class, $obj);
         $has = $obj->has('router');
         $this->assertTrue($has);
-
         $get = $obj->get('router');
         $this->assertInstanceOf(Router::class, $get);
+
+        // If line pushed, then class from \DrMVC\ namespace
+        $obj->set('config', 'Config');
+        $this->assertInstanceOf(Containers::class, $obj);
+        $has = $obj->has('config');
+        $this->assertTrue($has);
+        $get = $obj->get('config');
+        $this->assertInstanceOf(Config::class, $get);
     }
 
 }

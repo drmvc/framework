@@ -18,7 +18,7 @@ class Error
      *
      * @return string
      */
-    protected function renderHtmlErrorMessage()
+    private function renderHtmlErrorMessage()
     {
         $title = 'DrMVC Application Error';
         $html = '<p>A website error has occurred. Sorry for the temporary inconvenience.</p>';
