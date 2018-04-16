@@ -252,26 +252,15 @@ class App implements AppInterface
      */
     private function detectAction(string $className, array $variables = []): string
     {
-        /*
-         * Detect what action should be initiated
-         *
-         * Priorities:
-         */
-
-        // 3. Default action is index - action_index in result
-        $action = self::DEFAULT_ACTION;
-
-        // 2. If action name in variables
-        if (isset($variables['action'][0])) {
-            $action = $variables['action'][0];
-        }
-
-        // 1. Action name in line with class name eg. MyApp\Index:test - test
-        //    here is `action_test` alias
-        $classAction = $this->extractActionFromClass($className);
-        if (null !== $classAction) {
-            $action = $classAction;
-        }
+        $action =
+            // 1. Action name in line with class name eg. MyApp\Index:test - alias for `action_test`
+            $this->extractActionFromClass($className)
+            ?? (
+                // 2. If action name in variables (we need first item)
+                $variables['action'][0]
+                // 3. Default action is index
+                ?? self::DEFAULT_ACTION
+            );
 
         return 'action_' . $action;
     }
@@ -325,7 +314,7 @@ class App implements AppInterface
             $class = new $className();
             $action = $this->detectAction($callback, $variables);
 
-            // If method is not found
+            // If method is not found in class and error is not triggered, then trigger error
             if (true !== $error && false === $this->methodCheck($class, $action)) {
                 $router = $this->container('router');
                 $routeError = $router->getError();
