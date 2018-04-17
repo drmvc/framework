@@ -6,7 +6,7 @@
 [![Code Climate](https://codeclimate.com/github/drmvc/framework/badges/gpa.svg)](https://codeclimate.com/github/drmvc/framework)
 [![Scrutinizer CQ](https://scrutinizer-ci.com/g/drmvc/framework/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/drmvc/framework/)
 
-# DrMVC Framework
+# DrMVC\Framework
 
 A framework that combines some modules. necessary to create a full-fledged web application.
 
@@ -16,7 +16,7 @@ A framework that combines some modules. necessary to create a full-fledged web a
 
 More examples you can find [here](extra).
 
-Example of `index.php` inside `public_html` folder:
+### Example of `index.php` inside `public_html` folder:
 
 ```php
 <?php
@@ -40,7 +40,7 @@ $app
 echo $app->run();
 ```
 
-Example of `Index` controller inside `app/Controllers` folder:
+### Example of `Index` controller inside `app/Controllers` folder:
 
 ```php
 <?php
@@ -80,8 +80,6 @@ class Index
 
 ## Where to get help
 
-If you need help with this project, you can read detailed instruction on [Documentation](https://drmvc.com/docs) page. 
-
 If you found the bug, please report about this on [GitHub Issues](https://github.com/drmvc/framework/issues) page.
 
 ## About PHP Unit Tests
@@ -89,7 +87,7 @@ If you found the bug, please report about this on [GitHub Issues](https://github
 First need to install all dev dependencies via `composer update`, then
 you can run tests by hands from source directory via `./vendor/bin/phpunit` command.
 
-# Links
+## Links
 
 * [DrMVC Framework](https://drmvc.com)
 * [Slim](https://github.com/slimphp/Slim) - Is a PHP micro framework, I really like how there are implemented the PSR-4 conception.
